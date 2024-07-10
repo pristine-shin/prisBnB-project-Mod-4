@@ -21,6 +21,8 @@
       email varchar
       username varchar
       password varchar
+      createdAt timestamp
+      updatedAt timestamp
     }
 
     Table spots {
@@ -72,6 +74,8 @@
       imageableType varchar
       url varchar
       preview boolean
+      createdAt timestamp
+      updatedAt timestamp
     }
 
     Ref: spots.ownerId > users.id // many-to-one
