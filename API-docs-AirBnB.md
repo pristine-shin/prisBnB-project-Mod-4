@@ -37,38 +37,48 @@
       price decimal
       createdAt timestamp
       updatedAt timestamp
-      avgRating decimal
-      previewImage varchar
+      //don't need these because they can be queried using columns in other tables
+      //avgRating decimal
+      //previewImage varchar
     }
 
     Table bookings {
       id integer [primary key]
       spotId integer
-      userId integer
+      userId integerΩ
       startDate date
       endDate date
       createdAt timestamp
       updatedAt timestamp
     }
 
-    Table spotImages {
+    // Table spotImages {
+    //   id integer [primary key]
+    //   spotId integer
+    //   url varchar
+    //   preview boolean
+    // }
+
+    // Table reviewImages {
+    //   id integer [primary key]
+    //   reviewId integer
+    //   url varchar
+    // }
+
+    //Instead of doing two images tables for spots and reviews, you can make a polymorphic table like so:
+    Table images {
       id integer [primary key]
-      spotId integer
+      imageableId integer
+      imageableType varchar
       url varchar
       preview boolean
     }
 
-    Table reviewImages {
-      id integer [primary key]
-      reviewId integer
-      url varchar
-    }
-
     Ref: spots.ownerId > users.id // many-to-one
 
-    Ref: spotImages.spotId > spots.id // many-to-one
+    // Ref: spotImages.spotId > spots.id // many-to-one
 
-    Ref: reviewImages.reviewId > reviews.id // many-to-one
+    // Ref: reviewImages.reviewId > reviews.id // many-to-one
 
     Ref: reviews.userId > users.id // many-to-one
 
@@ -77,6 +87,10 @@
     Ref: bookings.userId > users.id // many-to-one?
 
     Ref: bookings.spotId > spots.id // many-to-one
+
+    Ref: images.imageableId > spots.id // many-to-one
+
+    Ref: images.imageableId > reviews.id // many-to-one
     ```
 
 ## API Documentation
