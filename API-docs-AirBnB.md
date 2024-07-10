@@ -3,6 +3,81 @@
 ## Database Schema Design
 
 `<insert database schema design here>`
+    ```
+    Table reviews {
+      id integer [primary key]
+      userId integer
+      spotId integer
+      review varchar
+      stars integer
+      createdAt timestamp
+      updatedAt timestamp
+    }
+
+    Table users {
+      id integer [primary key]
+      firstName varchar
+      lastName varchar
+      email varchar
+      username varchar
+      password varchar
+    }
+
+    Table spots {
+      id integer [primary key]
+      ownerId integer
+      address varchar
+      city varchar
+      state varchar
+      country varchar
+      lat decimal
+      lng decimal
+      name varchar
+      description varchar
+      price decimal
+      createdAt timestamp
+      updatedAt timestamp
+      avgRating decimal
+      previewImage varchar
+    }
+
+    Table bookings {
+      id integer [primary key]
+      spotId integer
+      userId integer
+      startDate date
+      endDate date
+      createdAt timestamp
+      updatedAt timestamp
+    }
+
+    Table spotImages {
+      id integer [primary key]
+      spotId integer
+      url varchar
+      preview boolean
+    }
+
+    Table reviewImages {
+      id integer [primary key]
+      reviewId integer
+      url varchar
+    }
+
+    Ref: spots.ownerId > users.id // many-to-one
+
+    Ref: spotImages.spotId > spots.id // many-to-one
+
+    Ref: reviewImages.reviewId > reviews.id // many-to-one
+
+    Ref: reviews.userId > users.id // many-to-one
+
+    Ref: reviews.spotId > spots.id // many-to-one
+
+    Ref: bookings.userId > users.id // many-to-one?
+
+    Ref: bookings.spotId > spots.id // many-to-one
+    ```
 
 ## API Documentation
 
@@ -451,7 +526,7 @@ Create and return a new image for a spot specified by id.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: PUT
+  * Method: POST
   * Route path: /api/spots/:spotId/images
   * Headers:
     * Content-Type: application/json
