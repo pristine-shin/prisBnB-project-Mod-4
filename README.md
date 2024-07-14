@@ -1,8 +1,10 @@
-# `<name of application here>` AirBnB
+# Pristine's AirBnB Project
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![db-schema]
+
+[db-schema]: ./images/Database%20Schema%20Design.webp
     ```
     Table reviews {
       id integer [primary key]
