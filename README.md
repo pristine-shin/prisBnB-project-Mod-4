@@ -49,7 +49,7 @@
     Table bookings {
       id integer [primary key]
       spotId integer
-      userId integerΩ
+      userId integer
       startDate date
       endDate date
       createdAt timestamp
