@@ -30,3 +30,22 @@ npx sequelize model:generate --name DraftPick --attributes fanId:integer,playerI
 
 npx sequelize migration:generate --name add-sportId-to-teams
 npx sequelize migration:generate --name add-currentTeamId-to-players
+
+
+*** git commands: ***
+
+git checkout dev
+
+Then, make sure you have the latest changes in the development branch from
+your remote repository in your local repository (this is useful when
+collaborating with other developers):
+
+git pull origin dev
+
+Then, merge the feature branch into the `dev` branch:
+
+git merge `<branch-name>`
+
+Finally, push your changes to the development branch to the remote repository:
+
+git push origin dev
