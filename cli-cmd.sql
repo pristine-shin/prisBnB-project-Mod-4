@@ -11,6 +11,18 @@ npx sequelize model:generate --name Image --attributes imageableId:integer,image
 
 Phase 2/3:
 npx dotenv sequelize db:migrate
+
+npx sequelize seed:generate --name demo-spot
+
+npx sequelize seed:generate --name demo-review
+
+npx sequelize seed:generate --name demo-booking
+
+npx sequelize seed:generate --name demo-image
+
+
+
+
 npx dotenv sequelize db:seed:all
 
 Phase 4:
