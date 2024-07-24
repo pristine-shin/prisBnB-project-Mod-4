@@ -11,8 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up (queryInterface, Sequelize) {
     try {
-      console.log("Starting to seed bookings...");
-      await queryInterface.bulkInsert('bookings', [
+      await Booking.bulkCreate([
         {
           spotId: 1,
           userId: 1,
@@ -29,8 +28,7 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date()
         }
-      ], {});
-      console.log("Bookings seeded successfully.");
+      ], { validate: true });
     } catch(err) {
       console.error("Error seeding bookings:", err);
       throw err;
@@ -41,8 +39,9 @@ module.exports = {
     try {
       options.tableName = 'Bookings';
       const Op = Sequelize.Op;
-      console.log("Starting to delete seeded bookings...");
-      return queryInterface.bulkDelete('bookings', null, {});
+      return queryInterface.bulkDelete(options, {
+        spotId: { [Op.in]: [1, 2] }
+      }, {});
     } catch(err) {
       console.error("Error deleting seeded bookings:", err);
       throw err;
