@@ -22,18 +22,35 @@ module.exports = {
      * }], {});
     */
 
-    await User.bulkCreate([
+    await Spot.bulkCreate([
       {
-        address: "123 Disney Lane",
-        city: "San Francisco",
-        state: "California",
-        country: "United States of America",
-        lat: 37.7645358,
-        lng: -122.4730327,
-        name: "App Academy",
-        description: "Place where web developers are created",
-        price: 123
+        ownerId: 1,
+        address: '123 Main St',
+        city: 'Anytown',
+        state: 'CA',
+        country: 'USA',
+        lat: 34.0522,
+        lng: -118.2437,
+        name: 'Cozy Cottage',
+        description: 'A cozy cottage in the heart of Anytown.',
+        price: 150.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
+      {
+        ownerId: 2,
+        address: '456 Elm St',
+        city: 'Othertown',
+        state: 'NY',
+        country: 'USA',
+        lat: 40.7128,
+        lng: -74.0060,
+        name: 'Modern Apartment',
+        description: 'A modern apartment in Othertown.',
+        price: 200.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
     ], { validate: true });
   },
 
@@ -44,10 +61,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Users';
+    options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      address: { [Op.in]: ['123 Main St', '456 Elm St'] }
     }, {})
   }
 };
