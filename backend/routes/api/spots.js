@@ -6,14 +6,34 @@ const { User, Image, Spot, Review } = require('../../db/models');
 const router = express.Router();
 router.use(express.json());
 
-//get all spots
-router.get('/', async (req, res, next) => {
-    const allSpots = await Spot.findAll();
 
-    res.json({"Spots": allSpots });
+//get all spots ******************************************************
+router.get('/', async (req, res, next) => {
+    const allSpots = await Spot.findAll({
+        include: [ Review ]
+    });
+
+    const allSpotsCopy = [];
+
+    allSpots.forEach(spot => {
+        let starsArr = [];
+        let spotCopy = spot.toJSON();
+
+        for (let review of spot.Reviews) {
+            starsArr.push(review.stars);
+        }
+
+        const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
+
+        spotCopy.avgRating = sumStars/spot.Reviews.length;
+        delete spotCopy.Reviews;
+        allSpotsCopy.push(spotCopy)
+    })
+
+    res.json({"Spots": allSpotsCopy });
 })
 
-//get all spots owned/created by the current user
+//get all spots owned/created by the current user ********************
 router.get('/current', async (req, res, next) => {
     const userSpots = await Spot.findAll({
         where: {
