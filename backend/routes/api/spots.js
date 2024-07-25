@@ -10,7 +10,15 @@ router.use(express.json());
 //get all spots ******************************************************
 router.get('/', async (req, res, next) => {
     const allSpots = await Spot.findAll({
-        include: [ Review ]
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: Image,
+                where: { imageableType: 'spot'}
+            }
+        ]
     });
 
     const allSpotsCopy = [];
@@ -27,10 +35,15 @@ router.get('/', async (req, res, next) => {
 
         spotCopy.avgRating = sumStars/spot.Reviews.length;
         delete spotCopy.Reviews;
+
+        spotCopy.previewImage = allSpots.Images;
+        delete spotCopy.Images;
+
         allSpotsCopy.push(spotCopy)
     })
 
-    res.json({"Spots": allSpotsCopy });
+    res.json({"Spots": allSpots });
+
 })
 
 //get all spots owned/created by the current user ********************
