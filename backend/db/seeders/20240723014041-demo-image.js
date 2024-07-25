@@ -25,7 +25,7 @@ module.exports = {
     await Image.bulkCreate([
       {
         imageableId: 1,
-        imageableType: 'spot',
+        imageableType: 'Spot',
         url: 'https://example.com/image1.jpg',
         preview: true,
         createdAt: new Date(),
@@ -33,7 +33,7 @@ module.exports = {
       },
       {
         imageableId: 2,
-        imageableType: 'spot',
+        imageableType: 'Spot',
         url: 'https://example.com/image2.jpg',
         preview: false,
         createdAt: new Date(),
@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         imageableId: 1,
-        imageableType: 'review',
+        imageableType: 'Review',
         url: 'https://example.com/review-image1.jpg',
         preview: false,
         createdAt: new Date(),
@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         imageableId: 2,
-        imageableType: 'review',
+        imageableType: 'Review',
         url: 'https://example.com/review-image2.jpg',
         preview: false,
         createdAt: new Date(),

@@ -15,7 +15,8 @@ router.get('/', async (req, res, next) => {
                 model: Review
             },
             {
-                model: Image
+                model: Image,
+                where: { imageableType: 'Spot'}
             }
         ]
     });
