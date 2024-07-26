@@ -89,23 +89,33 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        min: -90,
-        max: 90,
+        range(value) {
+          if (value < -90 || value > 90) {
+            throw Error("Latitude must be within -90 and 90")
+          }
+        }
       }
     },
     lng: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        min: -180,
-        max: 180,
+        range(value) {
+          if (value < -180 || value > 180) {
+            throw Error("Longitude must be within -180 and 180")
+          }
+        }
       }
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1,49]
+        maxChar(value) {
+          if (value.length >= 50) {
+            throw Error ("Name must be less than 50 characters")
+          }
+        }
       }
     },
     description: {
@@ -123,7 +133,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        min: 1
+        positive(value) {
+          if (value <= 0) {
+            throw Error ("Price per day must be a positive number")
+          }
+        }
       }
     },
   }, {
