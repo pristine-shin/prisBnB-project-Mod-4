@@ -71,7 +71,7 @@ router.get('/:spotId', async (req, res, next) => {
         where: {
             id: req.params.spotId
         },
-        include: [ Image, User, Review ]
+        include: [ SpotImage, User, Review ]
     });
 
     if (!spotFromId) {
@@ -89,12 +89,12 @@ router.get('/:spotId', async (req, res, next) => {
         }
     })
 
-    const spotImages = await Image.findAll({
+    const spotImages = await SpotImage.findAll({
         where: {
-            imageableId: req.params.spotId
+            spotId: req.params.spotId
         },
         attributes: {
-            exclude: ['imageableId', 'imageableType', 'createdAt', 'updatedAt']
+            exclude: ['spotId', 'createdAt', 'updatedAt']
         }
     });
 
