@@ -51,17 +51,52 @@ router.get('/', async (req, res, next) => {
 })
 
 //get all spots owned/created by the current user ********************
-router.get('/current', async (req, res) => {
+router.get('/current', requireAuth, async (req, res) => {
     const { user } = req;
 
     if (user) {
         const userSpots = await Spot.findAll({
             where: {
                 ownerId: user.id
-            }
+            },
+            include: [
+                {
+                    model: Review
+                },
+                {
+                    model: SpotImage,
+                }
+            ]
         })
 
-        res.json({ Spots: userSpots });
+        const allSpotsCopy = [];
+
+    userSpots.forEach(spot => {
+        let starsArr = [];
+        let spotCopy = spot.toJSON();
+
+        for (let review of spot.Reviews) {
+            starsArr.push(review.stars);
+        }
+
+        const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
+
+        spotCopy.avgRating = sumStars/spot.Reviews.length;
+        delete spotCopy.Reviews;
+
+        let spotUrl;
+        for (let image of spot.SpotImages) {
+            spotUrl = image.url;
+        }
+
+        spotCopy.previewImage = spotUrl;
+        delete spotCopy.SpotImages;
+
+        allSpotsCopy.push(spotCopy)
+    })
+
+    res.json({"Spots": allSpotsCopy });
+
     } else res.json({ user: null })
 })
 
@@ -123,8 +158,6 @@ router.get('/:spotId', async (req, res, next) => {
     delete spotCopy.User
 
     res.json(spotCopy);
-    // res.json(spotImages);
-    // res.json(starsArr);
 })
 
 //create a spot *******************************************
