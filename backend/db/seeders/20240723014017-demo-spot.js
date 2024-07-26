@@ -38,6 +38,20 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        ownerId: 1,
+        address: '6301 Trife St',
+        city: 'Hometown',
+        state: 'HT',
+        country: 'Spain',
+        lat: 37.7749,
+        lng: -122.4194,
+        name: 'Urban Homestead',
+        description: 'A palace of trife arts, where dreams come true.',
+        price: 100.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         ownerId: 2,
         address: '456 Elm St',
         city: 'Othertown',
@@ -50,7 +64,8 @@ module.exports = {
         price: 200.00,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+
     ], { validate: true });
   },
 
@@ -64,7 +79,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['123 Main St', '456 Elm St'] }
+      address: { [Op.in]: ['123 Main St', '6301 Trife St', '456 Elm St'] }
     }, {})
   }
 };

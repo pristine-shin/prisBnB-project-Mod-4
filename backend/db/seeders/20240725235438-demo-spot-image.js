@@ -2,7 +2,7 @@
 
 // /** @type {import('sequelize-cli').Migration} */ //what is this?
 
-const { Review } = require('../models');
+const { SpotImage } = require('../models');
 const bcrypt = require("bcryptjs");
 
 let options = {};
@@ -22,39 +22,50 @@ module.exports = {
      * }], {});
     */
 
-    await Review.bulkCreate([
+    await SpotImage.bulkCreate([
       {
-        userId: 1,
         spotId: 1,
-        review: 'Amazing place, very cozy and clean.',
-        stars: 5,
+        url: 'https://example.com/cozy_cottage.jpg',
+        preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
         spotId: 2,
-        review: 'Great location, very modern.',
-        stars: 4,
+        url: 'https://example.com/urban_homestead_1.jpg',
+        preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
         spotId: 2,
-        review: 'Great place, very cozy!',
-        stars: 5,
+        url: 'https://example.com/urban_homestead_2.jpg',
+        preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
         spotId: 3,
-        review: 'Nice and modern apartment.',
-        stars: 4,
+        url: 'https://example.com/modern_apartment_1.jpg',
+        preview: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 3,
+        url: 'https://example.com/modern_apartment_2.jpg',
+        preview: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 3,
+        url: 'https://example.com/modern_apartment_3.jpg',
+        preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       }
+
     ], { validate: true });
   },
 
@@ -65,10 +76,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Reviews';
+    options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      userId: { [Op.in]: [1, 2] }
+      url: { [Op.in]: ['https://example.com/cozy_cottage.jpg','https://example.com/urban_homestead_1.jpg','https://example.com/urban_homestead_2.jpg','https://example.com/modern_apartment_1.jpg','https://example.com/modern_apartment_2.jpg','https://example.com/modern_apartment_3.jpg'] }
     }, {})
   }
 };

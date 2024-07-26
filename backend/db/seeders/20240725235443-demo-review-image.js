@@ -2,7 +2,7 @@
 
 // /** @type {import('sequelize-cli').Migration} */ //what is this?
 
-const { Image } = require('../models');
+const { ReviewImage } = require('../models');
 const bcrypt = require("bcryptjs");
 
 let options = {};
@@ -22,39 +22,45 @@ module.exports = {
      * }], {});
     */
 
-    await Image.bulkCreate([
+    await ReviewImage.bulkCreate([
       {
-        imageableId: 1,
-        imageableType: 'Spot',
-        url: 'https://example.com/image1.jpg',
-        preview: true,
+        reviewId: 1,
+        url: 'https://example.com/review_image1.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        imageableId: 2,
-        imageableType: 'Spot',
-        url: 'https://example.com/image2.jpg',
-        preview: false,
+        reviewId: 1,
+        url: 'https://example.com/review_image2.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        imageableId: 1,
-        imageableType: 'Review',
-        url: 'https://example.com/review-image1.jpg',
-        preview: false,
+        reviewId: 2,
+        url: 'https://example.com/review_image3.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        imageableId: 2,
-        imageableType: 'Review',
-        url: 'https://example.com/review-image2.jpg',
-        preview: false,
+        reviewId: 2,
+        url: 'https://example.com/review_image4.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        reviewId: 3,
+        url: 'https://example.com/review_image5.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        reviewId: 4,
+        url: 'https://example.com/review_image6.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+
     ], { validate: true });
   },
 
@@ -65,10 +71,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Images';
+    options.tableName = 'ReviewImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['https://example.com/image1.jpg', 'https://example.com/image2.jpg', 'https://example.com/review-image1.jpg', 'https://example.com/review-image2.jpg'] }
+      url: { [Op.in]: ['https://example.com/review_image1.jpg','https://example.com/review_image2.jpg','https://example.com/review_image3.jpg','https://example.com/review_image4.jpg','https://example.com/review_image5.jpg','https://example.com/review_image6.jpg',] }
     }, {})
   }
 };

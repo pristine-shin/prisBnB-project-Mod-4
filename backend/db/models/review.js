@@ -19,12 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'spotId'
       });
 
-      Review.hasMany(models.Image, {
-        foreignKey: 'imageableId',
-        constraints: false,
-        scope: {
-          imageableType: 'Review'
-        }
+      Review.hasMany(models.ReviewImage, {
+        foreignKey: 'reviewId',
+        onDelete: 'CASCADE',
+        hooks: true,
       });
     }
   }
