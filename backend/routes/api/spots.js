@@ -190,25 +190,33 @@ router.get('/:spotId', async (req, res, next) => {
 //   handleValidationErrors
 // ];
 
-router.post('/', /* validateNewSpot, */
+router.post('/', /*requireAuth,*/
     async (req, res) => {
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        const { user } = req;
+
+        let userId;
+
+        if (user) {
+            userId = user.id;
+        }
         const spot = await Spot.create({ ownerId: 1, address, city, state, country, lat, lng, name, description, price });
 
-        const validSpot = {
-            ownerId: 1,
-            address: spot.address,
-            city: spot.city,
-            state: spot.state,
-            country: spot.country,
-            lat: spot.lat,
-            lng: spot.lng,
-            name: spot.name,
-            description: spot.description,
-            price: spot.price,
-            createdAt: new Date(),
-            updatedAt: new Date()
-        }
+        // const validSpot = {
+        //     ownerId: 1,
+        //     address: spot.address,
+        //     city: spot.city,
+        //     state: spot.state,
+        //     country: spot.country,
+        //     lat: spot.lat,
+        //     lng: spot.lng,
+        //     name: spot.name,
+        //     description: spot.description,
+        //     price: spot.price,
+        //     createdAt: new Date(),
+        //     updatedAt: new Date()
+        // }
 
         return res.json(spot)
     }
