@@ -2,7 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Image, Spot, Review } = require('../../db/models');
+const { User, SpotImage, Spot, Review } = require('../../db/models');
 const router = express.Router();
 router.use(express.json());
 
@@ -15,8 +15,7 @@ router.get('/', async (req, res, next) => {
                 model: Review
             },
             {
-                model: Image,
-                where: { imageableType: 'Spot'}
+                model: SpotImage,
             }
         ]
     });
@@ -36,13 +35,18 @@ router.get('/', async (req, res, next) => {
         spotCopy.avgRating = sumStars/spot.Reviews.length;
         delete spotCopy.Reviews;
 
-        spotCopy.previewImage = allSpots.Images;
-        delete spotCopy.Images;
+        let spotUrl;
+        for (let image of spot.SpotImages) {
+            spotUrl = image.url;
+        }
+
+        spotCopy.previewImage = spotUrl;
+        delete spotCopy.SpotImages;
 
         allSpotsCopy.push(spotCopy)
     })
 
-    res.json({"Spots": allSpots });
+    res.json({"Spots": allSpotsCopy });
 
 })
 
