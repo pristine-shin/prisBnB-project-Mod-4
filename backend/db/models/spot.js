@@ -43,19 +43,47 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        required(value) {
+          if (!value) {
+            throw Error ('Street address is required')
+          }
+        }
+      }
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        required(value) {
+          if (!value) {
+            throw Error ('City is required')
+          }
+        }
+      }
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        required(value) {
+          if (!value) {
+            throw Error ('State is required')
+          }
+        }
+      }
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        required(value) {
+          if (!value) {
+            throw Error ('Country is required')
+          }
+        }
+      }
     },
     lat: {
       type: DataTypes.DECIMAL,
@@ -82,7 +110,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        required(value) {
+          if (!value) {
+            throw Error ('Description is required')
+          }
+        }
+      }
     },
     price: {
       type: DataTypes.DECIMAL,
