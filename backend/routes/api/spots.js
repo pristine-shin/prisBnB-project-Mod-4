@@ -222,6 +222,32 @@ router.post('/', /*requireAuth,*/
     }
 )
 
+
+//edit a spot ***********************************************************
+router.put('/:spotId', async (req, res) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const updatedSpot = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    })
+
+    if (!updatedSpot) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found"
+          })
+    }
+
+    updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
+
+    await updatedSpot.save();
+
+    res.json(updatedSpot);
+
+})
+
 //delete a spot ***********************************************
 router.delete('/:spotId', async (req, res, next) => {
     const spotFromId = await Spot.findOne({
