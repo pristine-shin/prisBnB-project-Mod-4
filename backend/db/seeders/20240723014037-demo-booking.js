@@ -27,6 +27,22 @@ module.exports = {
           endDate: new Date('2024-09-07'),
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          spotId: 2,
+          userId: 3,
+          startDate: new Date('2024-10-01'),
+          endDate: new Date('2024-10-07'),
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          spotId: 3,
+          userId: 1,
+          startDate: new Date('2024-09-11'),
+          endDate: new Date('2024-09-17'),
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ], { validate: true });
     } catch(err) {

@@ -9,6 +9,11 @@ npx sequelize model:generate --name Booking --attributes spotId:integer,userId:i
 
 npx sequelize model:generate --name Image --attributes imageableId:integer,imageableType:string,url:string,preview:boolean
 
+npx sequelize model:generate --name ReviewImage --attributes reviewId:integer,url:string
+
+npx sequelize model:generate --name SpotImage --attributes spotId:integer,url:string,preview:boolean
+
+
 Phase 2/3:
 npx dotenv sequelize db:migrate
 
@@ -19,6 +24,12 @@ npx sequelize seed:generate --name demo-review
 npx sequelize seed:generate --name demo-booking
 
 npx sequelize seed:generate --name demo-image
+
+npx sequelize seed:generate --name demo-spot-image
+
+npx sequelize seed:generate --name demo-review-image
+
+
 
 
 
