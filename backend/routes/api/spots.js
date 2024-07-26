@@ -222,6 +222,32 @@ router.post('/', /*requireAuth,*/
     }
 )
 
+//add an image to a spot based on the spot's id *************************
+router.post('/:spotId/images', async (req, res) => {
+    const { url, preview } = req.body;
+
+    const spotForPic = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        }
+    });
+
+    if (!spotForPic) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found"
+          })
+    }
+
+    const newSpotImage = await SpotImage.create({ spotId: req.params.spotId, url, preview })
+
+    newImageCopy = newSpotImage.toJSON();
+    delete newImageCopy.spotId;
+    delete newImageCopy.updatedAt;
+    delete newImageCopy.createdAt;
+
+    res.json(newImageCopy)
+})
 
 //edit a spot ***********************************************************
 router.put('/:spotId', async (req, res) => {
