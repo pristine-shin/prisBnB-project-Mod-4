@@ -37,19 +37,41 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             ]
         })
+        const reviewedSpotsImage = await SpotImage.findAll()
 
-        let spotId;
+
+        let spotIds = [];
+        let spotImages = []
+        let userReviewsCopy = []
 
         for (let review of userReviews) {
-            spotId = review.spot.id;
+            spotIds.push(review.Spot.id);
         }
 
-        const userReviewsCopy = userReviews.toJSON();
-        userReviewsCopy.Spot.previewImage =
+        console.log(spotIds)
 
-    res.json({"Reviews": userReviews });
+        for (let spotImage of reviewedSpotsImage) {
+            if (spotIds.includes(spotImage.spotId)) {
+                spotImages.push(spotImage)
+            }
+        }
 
-    } else res.json({ user: null })
+        for (let review of userReviews) {
+            let reviewCopy = review.toJSON();
+
+            for (let previewImg of spotImages) {
+                if (previewImg.spotId = review.Spot.id) {
+                    reviewCopy.Spot.previewImage = previewImg.url;
+                }
+            }
+            userReviewsCopy.push(reviewCopy);
+        }
+
+    res.json(spotImages);
+    // return res.json({"Reviews": userReviewsCopy });
+    // res.json(reviewedSpotsImage)
+
+    } else return res.json({ user: null })
 })
 
 //get details of a spot from an id
