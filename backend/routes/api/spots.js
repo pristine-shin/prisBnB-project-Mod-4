@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, SpotImage, Spot, Review } = require('../../db/models');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 router.use(express.json());
 
@@ -160,7 +161,8 @@ router.get('/:spotId', async (req, res, next) => {
     res.json(spotCopy);
 })
 
-//create a spot *******************************************
+//create a spot ******************************************************
+//NOTE, might need to switch to express validators to get a 400 error code
 router.post('/', requireAuth,
     async (req, res) => {
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -174,12 +176,13 @@ router.post('/', requireAuth,
         }
         const spot = await Spot.create({ ownerId: userId, address, city, state, country, lat, lng, name, description, price });
 
+        res.status(201);
         return res.json(spot)
     }
 )
 
 //add an image to a spot based on the spot's id *************************
-router.post('/:spotId/images', async (req, res) => {
+router.post('/:spotId/images', requireAuth, async (req, res) => {
     const { url, preview } = req.body;
 
     const spotForPic = await Spot.findOne({
@@ -206,7 +209,7 @@ router.post('/:spotId/images', async (req, res) => {
 })
 
 //edit a spot ***********************************************************
-router.put('/:spotId', async (req, res) => {
+router.put('/:spotId', requireAuth, async (req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
     const updatedSpot = await Spot.findOne({
@@ -231,7 +234,7 @@ router.put('/:spotId', async (req, res) => {
 })
 
 //delete a spot ***********************************************
-router.delete('/:spotId', async (req, res, next) => {
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const spotFromId = await Spot.findOne({
         where: {
             id: req.params.spotId
