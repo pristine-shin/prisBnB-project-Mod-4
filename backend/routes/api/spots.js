@@ -2,7 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, SpotImage, Spot, Review } = require('../../db/models');
+const { User, SpotImage, ReviewImage, Spot, Review } = require('../../db/models');
 const router = express.Router();
 router.use(express.json());
 
@@ -157,7 +157,40 @@ router.get('/:spotId', async (req, res, next) => {
     spotCopy.Owner = owner
     delete spotCopy.User
 
-    res.json(spotCopy);
+    return res.json(spotCopy);
+})
+
+//get all reviews from an spot's id ***********************************
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+    const spotFromId = await Spot.findByPk(req.params.spotId);
+
+    const reviewsOfSpot = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [ {
+            model: User,
+            attributes: {
+                exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+            }
+         },
+         {
+            model: ReviewImage,
+            attributes: {
+                exclude: ['reviewId', 'createdAt', 'updatedAt']
+            }
+         }]
+    });
+
+    if (!spotFromId) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found"
+          })
+    }
+
+    return res.json({ Reviews: reviewsOfSpot });
 })
 
 //create a spot *******************************************
@@ -251,4 +284,6 @@ router.delete('/:spotId', async (req, res, next) => {
     res.json({ "message": "Successfully deleted" })
 
 })
+
+
 module.exports = router;

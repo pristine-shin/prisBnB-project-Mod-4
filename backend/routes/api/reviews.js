@@ -74,7 +74,7 @@ router.get('/current', requireAuth, async (req, res) => {
     } else return res.json({ user: null })
 })
 
-//get details of a spot from an id
+//get all reviews from an spot's id
 router.get('/:spotId', async (req, res, next) => {
     const spotFromId = await Spot.findOne({
         where: {
