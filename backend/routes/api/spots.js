@@ -201,7 +201,7 @@ const validateReview = [
     check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
-    check('username')
+    check('stars')
       .exists({ checkFalsy: true })
       .isInt({min: 1, max: 5})
       .withMessage("Stars must be an integer from 1 to 5"),
@@ -210,17 +210,32 @@ const validateReview = [
 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
 
+    const { review, stars } = req.body;
+    const { user } = req;
+
     const spotFromId = await Spot.findByPk(req.params.spotId);
+
+    const spotReviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
 
     if (!spotFromId) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found"
-          })
+        })
     }
 
-    const { review, stars } = req.body;
-    const { user } = req;
+    for (let review of spotReviews) {
+        if (review.userId = user.id) {
+            res.status(500);
+            return res.json({
+                "message": "User already has a review for this spot"
+              })
+        }
+    }
 
     const newReview = await Review.create({
         userId: user.id,
