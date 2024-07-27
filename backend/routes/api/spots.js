@@ -3,8 +3,10 @@ const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, SpotImage, ReviewImage, Spot, Review } = require('../../db/models');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
-router.use(express.json());
+// router.use(express.json());
 
 
 //get all spots ******************************************************
@@ -165,6 +167,13 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 
     const spotFromId = await Spot.findByPk(req.params.spotId);
 
+    if (!spotFromId) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found"
+          })
+    }
+
     const reviewsOfSpot = await Review.findAll({
         where: {
             spotId: req.params.spotId
@@ -183,6 +192,26 @@ router.get('/:spotId/reviews', async (req, res, next) => {
          }]
     });
 
+
+    return res.json({ Reviews: reviewsOfSpot });
+})
+
+//create a review from an spot's id ***********************************
+const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('username')
+      .exists({ checkFalsy: true })
+      .isInt({min: 1, max: 5})
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
+
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+
+    const spotFromId = await Spot.findByPk(req.params.spotId);
+
     if (!spotFromId) {
         res.status(404);
         res.json({
@@ -190,7 +219,20 @@ router.get('/:spotId/reviews', async (req, res, next) => {
           })
     }
 
-    return res.json({ Reviews: reviewsOfSpot });
+    const { review, stars } = req.body;
+    const { user } = req;
+
+    const newReview = await Review.create({
+        userId: user.id,
+        spotId: req.params.spotId,
+        review,
+        stars,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    })
+
+    res.status(201);
+    return res.json(newReview);
 })
 
 //create a spot *******************************************
