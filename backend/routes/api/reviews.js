@@ -67,8 +67,8 @@ router.get('/current', requireAuth, async (req, res) => {
             userReviewsCopy.push(reviewCopy);
         }
 
-    res.json(spotImages);
-    // return res.json({"Reviews": userReviewsCopy });
+    // res.json(spotImages);
+    return res.json({"Reviews": userReviewsCopy });
     // res.json(reviewedSpotsImage)
 
     } else return res.json({ user: null })
