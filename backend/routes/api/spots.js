@@ -2,7 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, SpotImage, ReviewImage, Spot, Review } = require('../../db/models');
+const { User, SpotImage, ReviewImage, Spot, Review, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -195,6 +195,88 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 
     return res.json({ Reviews: reviewsOfSpot });
 })
+
+//Get all Bookings for a Spot based on the Spot's id*************
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+
+    const { user } = req;
+    const spotFromId = await Spot.findOne({
+        where: {
+            id: req.params.spotId
+        },
+    });
+
+    if (!spotFromId) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found"
+          })
+    }
+    // console.log(spotFromId.ownerId)
+    // console.log(user.id)
+
+    if (spotFromId.ownerId !== user.id) {
+        const bookingsOfSpot = await Booking.findAll({
+            where: {
+                spotId: req.params.spotId
+            },
+            attributes: {
+                exclude: ['userId', 'createdAt', 'updatedAt']
+            }
+        });
+
+        return res.json({ Bookings: bookingsOfSpot });
+    }
+
+    if (spotFromId.ownerId === user.id) {
+        const bookingsOfOwner = await Booking.findAll({
+            where: {
+                spotId: req.params.spotId
+            },
+            attributes: {
+                include: ['id']
+            }
+        });
+
+
+        const users = await User.findAll({
+            attributes: {
+                exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+            }
+        })
+
+        let userIds = [];
+        let bookingUsers = [];
+        let bookingsOfOwnerCopy = [];
+
+        for(let bookings of bookingsOfOwner) {
+            userIds.push(bookings.userId)
+        }
+        // console.log(userIds)
+
+        for (let bookingUser of users) {
+            if (userIds.includes(bookingUser.id)) {
+                bookingUsers.push(bookingUser)
+            }
+        }
+
+        for (let bookedUser of bookingUsers) {
+            for (let userId of userIds) {
+                if (bookedUser.id === userId) {
+                    
+                }
+            }
+        }
+
+        // return res.json(bookingUsers)
+        return res.json({ Bookings: bookingsOfOwnerCopy})
+    }
+
+
+
+
+})
+
 
 //create a review from an spot's id ***********************************
 const validateReview = [
