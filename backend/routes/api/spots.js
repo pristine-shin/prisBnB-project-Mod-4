@@ -2,10 +2,11 @@ const express = require('express')
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, SpotImage, Spot, Review } = require('../../db/models');
+const { User, SpotImage, ReviewImage, Spot, Review } = require('../../db/models');
+const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
-router.use(express.json());
+// router.use(express.json());
 
 
 //get all spots ******************************************************
@@ -158,7 +159,95 @@ router.get('/:spotId', async (req, res, next) => {
     spotCopy.Owner = owner
     delete spotCopy.User
 
-    res.json(spotCopy);
+    return res.json(spotCopy);
+})
+
+//get all reviews from an spot's id ***********************************
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+    const spotFromId = await Spot.findByPk(req.params.spotId);
+
+    if (!spotFromId) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found"
+          })
+    }
+
+    const reviewsOfSpot = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [ {
+            model: User,
+            attributes: {
+                exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+            }
+         },
+         {
+            model: ReviewImage,
+            attributes: {
+                exclude: ['reviewId', 'createdAt', 'updatedAt']
+            }
+         }]
+    });
+
+
+    return res.json({ Reviews: reviewsOfSpot });
+})
+
+//create a review from an spot's id ***********************************
+const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+      .exists({ checkFalsy: true })
+      .isInt({min: 1, max: 5})
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
+
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+
+    const { review, stars } = req.body;
+    const { user } = req;
+
+    const spotFromId = await Spot.findByPk(req.params.spotId);
+
+    const spotReviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+
+    if (!spotFromId) {
+        res.status(404);
+        return res.json({
+            "message": "Spot couldn't be found"
+        })
+    }
+
+    for (let review of spotReviews) {
+        if (review.userId = user.id) {
+            res.status(500);
+            return res.json({
+                "message": "User already has a review for this spot"
+              })
+        }
+    }
+
+    const newReview = await Review.create({
+        userId: user.id,
+        spotId: req.params.spotId,
+        review,
+        stars,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    })
+
+    res.status(201);
+    return res.json(newReview);
 })
 
 //create a spot ******************************************************
@@ -254,4 +343,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     res.json({ "message": "Successfully deleted" })
 
 })
+
+
 module.exports = router;

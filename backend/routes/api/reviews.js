@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, ReviewImage, SpotImage, Spot, Review } = require('../../db/models');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 router.use(express.json());
 
@@ -67,162 +69,114 @@ router.get('/current', requireAuth, async (req, res) => {
             userReviewsCopy.push(reviewCopy);
         }
 
-    res.json(spotImages);
-    // return res.json({"Reviews": userReviewsCopy });
+    // res.json(spotImages);
+    return res.json({"Reviews": userReviewsCopy });
     // res.json(reviewedSpotsImage)
 
     } else return res.json({ user: null })
 })
 
-//get details of a spot from an id
-router.get('/:spotId', async (req, res, next) => {
-    const spotFromId = await Spot.findOne({
+//add an image to a review based on the reviews's id *************************
+router.post('/:reviewId/images', requireAuth, async (req, res) => {
+    const { url } = req.body;
+    const { user } = req;
+
+    const reviewForPic = await Review.findOne({
         where: {
-            id: req.params.spotId
-        },
-        include: [ SpotImage, User, Review ]
+            id: req.params.reviewId
+        }
     });
 
-    if (!spotFromId) {
+    if (!reviewForPic) {
         res.status(404);
-        res.json({
-            "message": "Spot couldn't be found"
+        return res.json({
+            "message": "Review couldn't be found"
           })
     }
-    const owner = await User.findOne({
+
+    const reviewImages = await ReviewImage.findAll({
         where: {
-            id: spotFromId.ownerId
-        },
-        attributes: {
-            exclude: ['username']
+            reviewId: req.params.reviewId
         }
     })
 
-    const spotImages = await SpotImage.findAll({
-        where: {
-            spotId: req.params.spotId
-        },
-        attributes: {
-            exclude: ['spotId', 'createdAt', 'updatedAt']
-        }
-    });
-
-    const spotCopy = spotFromId.toJSON();
-
-    spotCopy.numReviews = spotFromId.Reviews.length;
-
-    let starsArr = [];
-
-    for (let review of spotFromId.Reviews) {
-        starRating = review.stars;
-        starsArr.push(starRating);
-    }
-
-    const sumStars = starsArr.reduce(
-        (acc, curr) => acc + curr,);
-
-    spotCopy.avgStarRating = sumStars/spotCopy.numReviews;
-
-    delete spotCopy.Reviews;
-
-    spotCopy.SpotImages = spotImages
-    delete spotCopy.Images
-
-    spotCopy.Owner = owner
-    delete spotCopy.User
-
-    res.json(spotCopy);
-})
-
-//create a spot *******************************************
-router.post('/', /*requireAuth,*/
-    async (req, res) => {
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
-
-        const { user } = req;
-
-        let userId;
-
-        if (user) {
-            userId = user.id;
-        }
-        const spot = await Spot.create({ ownerId: 1, address, city, state, country, lat, lng, name, description, price });
-
-        return res.json(spot)
-    }
-)
-
-//add an image to a spot based on the spot's id *************************
-router.post('/:spotId/images', async (req, res) => {
-    const { url, preview } = req.body;
-
-    const spotForPic = await Spot.findOne({
-        where: {
-            id: req.params.spotId
-        }
-    });
-
-    if (!spotForPic) {
-        res.status(404);
-        res.json({
-            "message": "Spot couldn't be found"
+    if (reviewImages.length > 10) {
+        res.status(403);
+        return res.json({
+            "message": "Maximum number of images for this resource was reached"
           })
     }
 
-    const newSpotImage = await SpotImage.create({ spotId: req.params.spotId, url, preview })
 
-    newImageCopy = newSpotImage.toJSON();
-    delete newImageCopy.spotId;
+    const newReviewImage = await ReviewImage.create({ reviewId: req.params.reviewId, url })
+
+    const newImageCopy = newReviewImage.toJSON();
+
+    delete newImageCopy.reviewId;
     delete newImageCopy.updatedAt;
     delete newImageCopy.createdAt;
 
     res.json(newImageCopy)
 })
 
-//edit a spot ***********************************************************
-router.put('/:spotId', async (req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+//edit a review ***********************************************************
+const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+      .exists({ checkFalsy: true })
+      .isInt({min: 1, max: 5})
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
 
-    const updatedSpot = await Spot.findOne({
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+    const { review, stars } = req.body;
+    const { user } = req;
+
+    const updatedReview = await Review.findOne({
         where: {
-            id: req.params.spotId
+            id: req.params.reviewId
         }
     })
 
-    if (!updatedSpot) {
+    if (!updatedReview) {
         res.status(404);
-        res.json({
-            "message": "Spot couldn't be found"
+        return res.json({
+            "message": "Review couldn't be found"
           })
     }
 
-    updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
+    updatedReview.set({
+        review,
+        stars
+     });
 
-    await updatedSpot.save();
+    await updatedReview.save();
 
-    res.json(updatedSpot);
+    return res.json(updatedReview);
 
 })
 
-//delete a spot ***********************************************
-router.delete('/:spotId', async (req, res, next) => {
-    const spotFromId = await Spot.findOne({
+//delete a review ***********************************************
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
+    const reviewFromId = await Review.findOne({
         where: {
-            id: req.params.spotId
+            id: req.params.reviewId
         },
-        // include: [ Image, User, Review ]
     });
 
-    if (!spotFromId) {
+    if (!reviewFromId) {
         res.status(404);
-        res.json({
-            "message": "Spot couldn't be found"
+        return res.json({
+            "message": "Review couldn't be found"
           })
     }
 
-    await spotFromId.destroy();
+    await reviewFromId.destroy();
     res.status(200);
-    res.json({ "message": "Successfully deleted" })
+    return res.json({ "message": "Successfully deleted" })
 
 })
 module.exports = router;
