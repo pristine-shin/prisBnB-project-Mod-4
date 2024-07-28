@@ -159,25 +159,24 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 
 })
 
-//delete a spot ***********************************************
-router.delete('/:spotId', async (req, res, next) => {
-    const spotFromId = await Spot.findOne({
+//delete a review ***********************************************
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
+    const reviewFromId = await Review.findOne({
         where: {
-            id: req.params.spotId
+            id: req.params.reviewId
         },
-        // include: [ Image, User, Review ]
     });
 
-    if (!spotFromId) {
+    if (!reviewFromId) {
         res.status(404);
-        res.json({
-            "message": "Spot couldn't be found"
+        return res.json({
+            "message": "Review couldn't be found"
           })
     }
 
-    await spotFromId.destroy();
+    await reviewFromId.destroy();
     res.status(200);
-    res.json({ "message": "Successfully deleted" })
+    return res.json({ "message": "Successfully deleted" })
 
 })
 module.exports = router;
