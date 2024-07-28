@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, ReviewImage, SpotImage, Spot, Review } = require('../../db/models');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 router.use(express.json());
 
@@ -117,28 +119,43 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     res.json(newImageCopy)
 })
 
-//edit a Review ***********************************************************
-router.put('/:spotId', async (req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+//edit a review ***********************************************************
+const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+      .exists({ checkFalsy: true })
+      .isInt({min: 1, max: 5})
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
 
-    const updatedSpot = await Spot.findOne({
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+    const { review, stars } = req.body;
+    const { user } = req;
+
+    const updatedReview = await Review.findOne({
         where: {
-            id: req.params.spotId
+            id: req.params.reviewId
         }
     })
 
-    if (!updatedSpot) {
+    if (!updatedReview) {
         res.status(404);
-        res.json({
-            "message": "Spot couldn't be found"
+        return res.json({
+            "message": "Review couldn't be found"
           })
     }
 
-    updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
+    updatedReview.set({
+        review,
+        stars
+     });
 
-    await updatedSpot.save();
+    await updatedReview.save();
 
-    res.json(updatedSpot);
+    return res.json(updatedReview);
 
 })
 
