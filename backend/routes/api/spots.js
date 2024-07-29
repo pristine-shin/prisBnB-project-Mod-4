@@ -246,30 +246,37 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
         })
 
         let userIds = [];
-        let bookingUsers = [];
+        // let bookingUsers = [];
         let bookingsOfOwnerCopy = [];
+        let finalCopy = [];
 
         for(let bookings of bookingsOfOwner) {
             userIds.push(bookings.userId)
         }
         // console.log(userIds)
 
-        for (let bookingUser of users) {
-            if (userIds.includes(bookingUser.id)) {
-                bookingUsers.push(bookingUser)
-            }
-        }
-
-        for (let bookedUser of bookingUsers) {
-            for (let userId of userIds) {
-                if (bookedUser.id === userId) {
-                    
+        for (let booking of bookingsOfOwner) {
+            for (let bookingUser of users) {
+                if (userIds.includes(bookingUser.id)) {
+                    let bookingCopy = booking.toJSON();
+                    let bookingUserCopy = bookingUser.toJSON();
+                    bookingCopy.User = bookingUserCopy;
+                    bookingsOfOwnerCopy.push(bookingCopy)
                 }
             }
         }
 
-        // return res.json(bookingUsers)
-        return res.json({ Bookings: bookingsOfOwnerCopy})
+        for (let i = 0; i < bookingsOfOwnerCopy.length; i++) {
+            if (bookingsOfOwnerCopy[i].userId === bookingsOfOwnerCopy[i].User.id) {
+                finalCopy.push(bookingsOfOwnerCopy[i]);
+            }
+        }
+
+
+        // // return res.json(bookingUsers)
+        return res.json({ Bookings: finalCopy})
+        // return res.json({ Bookings: bookingsOfOwnerCopy})
+
     }
 
 
