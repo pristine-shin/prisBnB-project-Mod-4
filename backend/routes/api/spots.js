@@ -5,6 +5,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, SpotImage, ReviewImage, Spot, Review, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { DataTypes } = require('sequelize');
 const router = express.Router();
 // router.use(express.json());
 
@@ -208,11 +209,11 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     if (!spotFromId) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found"
           })
     }
-    
+
     // console.log(spotFromId.ownerId)
     // console.log(user.id)
 
@@ -329,7 +330,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const newReview = await Review.create({
         userId: user.id,
-        spotId: req.params.spotId,
+        spotId: Number(req.params.spotId),
         review,
         stars,
         createdAt: new Date(),
@@ -338,6 +339,64 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     res.status(201);
     return res.json(newReview);
+})
+
+//Create a Booking from a Spot based on the Spot's id*****************
+const validateBooking = [
+    check('startDate')
+    .exists({ checkFalsy: true })
+    // .isAfter(`DataTypes.NOW`)
+    .withMessage('startDate cannot be in the past'),
+    // check('endDate')
+    // .exists({ checkFalsy: true })
+    // .isDate({isAfter: this.startDate})
+    // .withMessage('endDate cannot be on or before startDate'),
+  handleValidationErrors
+];
+
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
+    const { startDate, endDate} = req.body;
+    const { user } = req;
+
+    const spotFromId = await Spot.findByPk(req.params.spotId);
+
+    if (!spotFromId) {
+        res.status(404);
+        return res.json({
+            "message": "Spot couldn't be found"
+        })
+    }
+
+    console.log('User id:', user.id)
+    console.log('_____________________')
+    console.log('Owner id:', spotFromId.ownerId)
+
+    if (spotFromId.ownerId !== user.id) {
+        const newBooking = await Booking.create({
+            spotId: Number(req.params.spotId),
+            userId: user.id,
+            startDate,
+            endDate,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+
+        res.status(201);
+        const newBookingWithId = await Booking.findOne({
+            where: {
+                spotId: newBooking.spotId,
+                userId: newBooking.userId,
+                startDate: newBooking.startDate,
+                endDate: newBooking.endDate
+            },
+            attributes: {
+                include: ['id']
+            }
+        })
+        return res.json(newBookingWithId);
+    } else {
+        return res.json({ message: 'Owner cannot book their own spot' })
+    }
 })
 
 //create a spot ******************************************************
