@@ -212,6 +212,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             "message": "Spot couldn't be found"
           })
     }
+    
     // console.log(spotFromId.ownerId)
     // console.log(user.id)
 
