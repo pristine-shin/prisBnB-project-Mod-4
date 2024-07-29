@@ -345,12 +345,14 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 const validateBooking = [
     check('startDate')
     .exists({ checkFalsy: true })
-    // .isAfter(`DataTypes.NOW`)
+    .isDate()
+    .isAfter()
     .withMessage('startDate cannot be in the past'),
-    // check('endDate')
-    // .exists({ checkFalsy: true })
-    // .isDate({isAfter: this.startDate})
-    // .withMessage('endDate cannot be on or before startDate'),
+    check('endDate')
+    .exists({ checkFalsy: true })
+    .isDate()
+    // .isAfter('startDate')
+    .withMessage('endDate cannot be on or before startDate'),
   handleValidationErrors
 ];
 
