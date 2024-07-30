@@ -388,12 +388,13 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
         const existingStartDate = Date.parse(booking.startDate);
         const existingEndDate = Date.parse(booking.endDate);
 
+        //create error object for all scenarios
         if (newStartDate >= existingStartDate
             && newStartDate <= existingEndDate) {
                 res.status(403);
                 return res.json({
                     message: "Sorry, this spot is already booked for the specified dates",
-                    error: {
+                    errors: {
                         startDate: "Start date conflicts with an existing booking"
                     }});
             } else if (newEndDate >= existingStartDate
@@ -401,7 +402,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
                 res.status(403);
                 return res.json({
                     message: "Sorry, this spot is already booked for the specified dates",
-                    error: {
+                    errors: {
                         endDate: "End date conflicts with an existing booking"
                     }});
             }
