@@ -99,7 +99,12 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     const { startDate, endDate} = req.body;
     const { user } = req;
 
-    const bookingFromId = await Booking.findByPk(req.params.bookingId);
+    const bookingFromId = await Booking.findOne({
+        where: {
+            id: req.params.bookingId
+        }
+    });
+
 
     if (!bookingFromId) {
         res.status(404);
@@ -108,24 +113,12 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
         })
     }
 
-        console.log('new booking end date:', Date.parse(bookingFromId.endDate))
-        console.log('_____________________')
-        console.log('current date:', Date.parse(Date.now()))
-
-    if (Date.parse(bookingFromId.endDate) < Date.parse(Date.now())) {
-        res.status(403);
-        return res.json({
-            "message": "Past bookings can't be modified"
-          })
-    }
-
     const bookingCheck = await Booking.findAll({
         where: {
-            spotId: spotFromId.id
+            spotId: bookingFromId.spotId
         }
     });
 
-    // return res.json(bookingCheck)
     for (let booking of bookingCheck) {
         // console.log('new booking start date:', Date.parse(startDate))
         // console.log(typeof startDate)
@@ -135,8 +128,8 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
 
         const newStartDate = Date.parse(startDate);
         const newEndDate = Date.parse(endDate);
-        const existingStartDate = Date.parse(booking.startDate);
-        const existingEndDate = Date.parse(booking.endDate);
+        const existingStartDate = Date.parse(bookingFromId.startDate);
+        const existingEndDate = Date.parse(bookingFromId.endDate);
 
         if (newStartDate >= existingStartDate
             && newStartDate <= existingEndDate) {
@@ -158,7 +151,7 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     }
 
     if (bookingFromId.userId === user.id) {
-        const updatedBooking = await Booking.set({
+        const updatedBooking = bookingFromId.set({
             spotId: Number(req.params.spotId),
             userId: user.id,
             startDate,
@@ -166,6 +159,8 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
             createdAt: new Date(),
             updatedAt: new Date()
         })
+
+        await updatedBooking.save();
 
         const newBookingWithId = await Booking.findOne({
             where: {
