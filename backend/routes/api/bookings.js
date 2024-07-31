@@ -201,6 +201,40 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     }
 })
 
+//delete a booking ***********************************************
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    const bookingFromId = await Booking.findOne({
+        where: {
+            id: req.params.bookingId
+        },
+    });
+
+    if (!bookingFromId) {
+        res.status(404);
+        return res.json({
+            "message": "Booking couldn't be found"
+          })
+    }
+
+    const spot = await Spot.findOne({
+        where: {
+            id: bookingFromId.spotId
+        }
+    })
+
+    if (bookingFromId.userId === user.id || spot.ownerId === user.id) {
+        await bookingFromId.destroy();
+        res.status(200);
+        return res.json({ "message": "Successfully deleted" })
+    } else {
+        return res.json({ message: 'You are not authorized to delete this booking' })
+    }
+
+
+})
+
 
 
 module.exports = router;
