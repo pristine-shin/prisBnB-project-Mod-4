@@ -202,15 +202,16 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
 })
 
 //delete a booking ***********************************************
-const validateDeletion = [
-    check('startDate')
-    .exists({ checkFalsy: true })
-    .isDate()
-    .isAfter()
-    .withMessage("Bookings that have been started can't be deleted"),
-    handleValidationErrors403,
-];
-router.delete('/:bookingId', requireAuth, validateDeletion, async (req, res, next) => {
+// const validateDeletion = [
+//     check('startDate')
+//     .exists({ checkFalsy: true })
+//     .isDate()
+//     .isAfter()
+//     .withMessage("Bookings that have been started can't be deleted"),
+//     handleValidationErrors403,
+// ];
+
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const bookingFromId = await Booking.findOne({
@@ -221,6 +222,9 @@ router.delete('/:bookingId', requireAuth, validateDeletion, async (req, res, nex
             include: ['id']
         }
     });
+
+    // const startDate = bookingFromId.startDate;
+    // return res.json(startDate)
 
     if (!bookingFromId) {
         res.status(404);
