@@ -393,6 +393,8 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
         const err = Error("Sorry, this spot is already booked for the specified dates");
         err.errors = errors;
         err.status = 403;
+        err.title = "Bad request.";
+
 
         if (newStartDate >= existingStartDate
             && newStartDate <= existingEndDate) {
