@@ -202,13 +202,24 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
 })
 
 //delete a booking ***********************************************
-router.delete('/:bookingId', requireAuth, async (req, res, next) => {
+const validateDeletion = [
+    check('startDate')
+    .exists({ checkFalsy: true })
+    .isDate()
+    .isAfter()
+    .withMessage("Bookings that have been started can't be deleted"),
+    handleValidationErrors403,
+];
+router.delete('/:bookingId', requireAuth, validateDeletion, async (req, res, next) => {
     const { user } = req;
 
     const bookingFromId = await Booking.findOne({
         where: {
             id: req.params.bookingId
         },
+        attributes: {
+            include: ['id']
+        }
     });
 
     if (!bookingFromId) {
@@ -231,8 +242,6 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     } else {
         return res.json({ message: 'You are not authorized to delete this booking' })
     }
-
-
 })
 
 
