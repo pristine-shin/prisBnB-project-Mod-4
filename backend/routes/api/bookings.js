@@ -223,6 +223,19 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         }
     });
 
+    // await bookingFromId.destroy();
+    //     res.status(200);
+    //     return res.json({ "message": "Successfully deleted" })
+
+    // const bookingFromPk = await Booking.findByPk(req.params.bookingId, {
+    //     attributes: {
+    //         include: ['id']
+    //     }
+    // })
+    // return res.json(bookingFromId)
+
+    // return res.json(bookingFromPk)
+
     // const startDate = bookingFromId.startDate;
     // return res.json(startDate)
 
