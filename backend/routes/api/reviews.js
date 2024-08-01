@@ -39,7 +39,11 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             ]
         })
-        const reviewedSpotsImage = await SpotImage.findAll()
+        const reviewedSpotsImage = await SpotImage.findAll({
+            where: {
+                preview: true
+            }
+        })
 
 
         let spotIds = [];
