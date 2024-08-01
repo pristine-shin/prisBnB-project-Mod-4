@@ -40,7 +40,7 @@ module.exports = {
       {
         spotId: 2,
         url: 'https://example.com/urban_homestead_2.jpg',
-        preview: true,
+        preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -54,14 +54,14 @@ module.exports = {
       {
         spotId: 3,
         url: 'https://example.com/modern_apartment_2.jpg',
-        preview: true,
+        preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: 3,
         url: 'https://example.com/modern_apartment_3.jpg',
-        preview: true,
+        preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
       }

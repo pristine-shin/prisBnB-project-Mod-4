@@ -19,6 +19,12 @@ router.get('/', async (req, res, next) => {
             },
             {
                 model: SpotImage,
+                where: {
+                    preview: true
+                },
+                attributes: {
+                    exclude: ['id', 'spotId', 'preview', 'createdAt', 'updatedAt']
+                }
             }
         ]
     });
@@ -38,12 +44,7 @@ router.get('/', async (req, res, next) => {
         spotCopy.avgRating = sumStars/spot.Reviews.length;
         delete spotCopy.Reviews;
 
-        let spotUrl;
-        for (let image of spot.SpotImages) {
-            spotUrl = image.url;
-        }
-
-        spotCopy.previewImage = spotUrl;
+        spotCopy.previewImage = spot.SpotImages[0].url;
         delete spotCopy.SpotImages;
 
         allSpotsCopy.push(spotCopy)
@@ -68,6 +69,12 @@ router.get('/current', requireAuth, async (req, res) => {
                 },
                 {
                     model: SpotImage,
+                    where: {
+                        preview: true
+                    },
+                    attributes: {
+                        exclude: ['id', 'spotId', 'preview', 'createdAt', 'updatedAt']
+                    }
                 }
             ]
         })
@@ -87,12 +94,7 @@ router.get('/current', requireAuth, async (req, res) => {
         spotCopy.avgRating = sumStars/spot.Reviews.length;
         delete spotCopy.Reviews;
 
-        let spotUrl;
-        for (let image of spot.SpotImages) {
-            spotUrl = image.url;
-        }
-
-        spotCopy.previewImage = spotUrl;
+        spotCopy.previewImage = spot.SpotImages[0].url;
         delete spotCopy.SpotImages;
 
         allSpotsCopy.push(spotCopy)
@@ -445,7 +447,38 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
 
 //create a spot ******************************************************
 //NOTE, might need to switch to express validators to get a 400 error code
-router.post('/', requireAuth,
+const validateSpot = [
+    check('address')
+        .notEmpty()
+        .withMessage('Street address is required'),
+    check('city')
+        .notEmpty()
+        .withMessage('City is required'),
+    check('state')
+        .notEmpty()
+        .withMessage('State is required'),
+    check('country')
+        .notEmpty()
+        .withMessage('Country is required'),
+    check('lat')
+        .isFloat({min: -90, max: 90})
+        .withMessage('Latitude must be within -90 and 90'),
+    check('lng')
+        .isFloat({min: -180, max: 180})
+        .withMessage('Longitude must be within -180 and 180'),
+    check('name')
+        .isLength({max: 50})
+        .withMessage('Name must be less than 50 characters'),
+    check('description')
+        .notEmpty()
+        .withMessage('Description is required'),
+    check('price')
+        .isFloat({min: 0})
+        .withMessage('Price per day must be a positive number'),
+    handleValidationErrors
+]
+
+router.post('/', requireAuth, validateSpot,
     async (req, res) => {
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
@@ -466,6 +499,7 @@ router.post('/', requireAuth,
 //add an image to a spot based on the spot's id *************************
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     const { url, preview } = req.body;
+    const { user } = req;
 
     const spotForPic = await Spot.findOne({
         where: {
@@ -480,19 +514,28 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
           })
     }
 
-    const newSpotImage = await SpotImage.create({ spotId: req.params.spotId, url, preview })
+    if (spotForPic.ownerId === user.id) {
+        const newSpotImage = await SpotImage.create({ spotId: req.params.spotId, url, preview })
 
-    newImageCopy = newSpotImage.toJSON();
-    delete newImageCopy.spotId;
-    delete newImageCopy.updatedAt;
-    delete newImageCopy.createdAt;
+        newImageCopy = newSpotImage.toJSON();
+        delete newImageCopy.spotId;
+        delete newImageCopy.updatedAt;
+        delete newImageCopy.createdAt;
 
-    res.json(newImageCopy)
+        res.status(201);
+        return res.json(newImageCopy)
+    } else {
+        return res.json({
+            "message": "Authorization required"
+          })
+    }
+
 })
 
 //edit a spot ***********************************************************
-router.put('/:spotId', requireAuth, async (req, res) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const { user } = req;
 
     const updatedSpot = await Spot.findOne({
         where: {
@@ -507,21 +550,29 @@ router.put('/:spotId', requireAuth, async (req, res) => {
           })
     }
 
-    updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
+    if (updatedSpot.ownerId === user.id) {
+        updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
 
-    await updatedSpot.save();
+        await updatedSpot.save();
 
-    res.json(updatedSpot);
+        return res.json(updatedSpot);
+    } else {
+        return res.json({
+            "message": "Authorization required"
+          })
+    }
 
 })
 
 //delete a spot ***********************************************
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const {user} = req;
+
     const spotFromId = await Spot.findOne({
         where: {
-            id: req.params.spotId
+            id: req.params.spotId,
+            // ownerId: user.id
         },
-        // include: [ Image, User, Review ]
     });
 
     if (!spotFromId) {
@@ -531,9 +582,15 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
           })
     }
 
-    await spotFromId.destroy();
-    res.status(200);
-    res.json({ "message": "Successfully deleted" })
+    if (spotFromId.ownerId === user.id) {
+        await spotFromId.destroy();
+        res.status(200);
+        return res.json({ "message": "Successfully deleted" })
+    } else {
+        return res.json({
+            "message": "Authorization required"
+          })
+    }
 
 })
 
