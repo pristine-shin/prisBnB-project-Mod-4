@@ -104,13 +104,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         }
     })
 
-    if (reviewImages.length > 10) {
+    // return res.json(reviewImages.length)
+    if (reviewImages.length >= 10) {
         res.status(403);
         return res.json({
             "message": "Maximum number of images for this resource was reached"
           })
     }
-
 
     const newReviewImage = await ReviewImage.create({ reviewId: req.params.reviewId, url })
 
@@ -120,7 +120,8 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     delete newImageCopy.updatedAt;
     delete newImageCopy.createdAt;
 
-    res.json(newImageCopy)
+    res.status(201);
+    return res.json(newImageCopy)
 })
 
 //edit a review ***********************************************************
