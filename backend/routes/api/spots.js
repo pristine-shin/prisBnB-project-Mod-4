@@ -570,6 +570,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
             "message": "Spot couldn't be found"
           })
     }
+    
 
     if (updatedSpot.ownerId === user.id) {
         updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
