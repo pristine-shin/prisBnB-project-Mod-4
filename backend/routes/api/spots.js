@@ -39,10 +39,16 @@ router.get('/', async (req, res, next) => {
             starsArr.push(review.stars);
         }
 
-        const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
+        if (starsArr.length) {
+            const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
 
-        spotCopy.avgRating = sumStars/spot.Reviews.length;
-        delete spotCopy.Reviews;
+            spotCopy.avgRating = sumStars/spot.Reviews.length;
+            delete spotCopy.Reviews;
+        } else {
+            spotCopy.avgRating = null;
+            delete spotCopy.Reviews;
+        }
+
 
         spotCopy.previewImage = spot.SpotImages[0].url;
         delete spotCopy.SpotImages;
@@ -89,10 +95,15 @@ router.get('/current', requireAuth, async (req, res) => {
             starsArr.push(review.stars);
         }
 
-        const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
+        if (starsArr.length) {
+            const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
 
-        spotCopy.avgRating = sumStars/spot.Reviews.length;
-        delete spotCopy.Reviews;
+            spotCopy.avgRating = sumStars/spot.Reviews.length;
+            delete spotCopy.Reviews;
+        } else {
+            spotCopy.avgRating = null;
+            delete spotCopy.Reviews;
+        }
 
         spotCopy.previewImage = spot.SpotImages[0].url;
         delete spotCopy.SpotImages;
@@ -149,12 +160,15 @@ router.get('/:spotId', async (req, res, next) => {
         starsArr.push(starRating);
     }
 
-    const sumStars = starsArr.reduce(
-        (acc, curr) => acc + curr,);
+    if (starsArr.length) {
+        const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
 
-    spotCopy.avgStarRating = sumStars/spotCopy.numReviews;
-
-    delete spotCopy.Reviews;
+        spotCopy.avgRating = sumStars/spot.Reviews.length;
+        delete spotCopy.Reviews;
+    } else {
+        spotCopy.avgRating = null;
+        delete spotCopy.Reviews;
+    }
 
     spotCopy.SpotImages = spotImages
     delete spotCopy.Images
@@ -408,6 +422,12 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
             errors.endDate = "End date conflicts with an existing booking";
         }
 
+        if (newStartDate <= existingStartDate
+            && newEndDate >= existingEndDate) {
+                errors.startDate = "Start date conflicts with an existing booking";
+                errors.endDate = "End date conflicts with an existing booking";
+            }
+
         if (errors.startDate || errors.endDate) {
             throw err;
         }
@@ -525,8 +545,9 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         res.status(201);
         return res.json(newImageCopy)
     } else {
+        res.status(403);
         return res.json({
-            "message": "Authorization required"
+            "message": "Forbidden"
           })
     }
 
@@ -557,8 +578,9 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
 
         return res.json(updatedSpot);
     } else {
+        res.status(403);
         return res.json({
-            "message": "Authorization required"
+            "message": "Forbidden"
           })
     }
 
@@ -587,8 +609,9 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         res.status(200);
         return res.json({ "message": "Successfully deleted" })
     } else {
+        res.status(403);
         return res.json({
-            "message": "Authorization required"
+            "message": "Forbidden"
           })
     }
 
