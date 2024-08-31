@@ -44,9 +44,9 @@ if (process.env.NODE_ENV !== 'production') {
 // });
 
 //Test route
-router.post('/api/test', (req, res) => {
-  return res.json({requestBody: req.body})
-})
+// router.post('/api/test', (req, res) => {
+//   return res.json({requestBody: req.body})
+// })
 
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
