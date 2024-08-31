@@ -12,7 +12,7 @@ const addSession = (user) => {
   };
 };
 
-const removeSession = () => {
+export const removeSession = () => {
   return {
     type: REMOVE_SESSION,
   }
