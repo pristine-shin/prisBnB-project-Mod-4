@@ -62,4 +62,3 @@ Finally, push your changes to the development branch to the remote repository:
 git push origin dev
 
 
-Testing git configuration
