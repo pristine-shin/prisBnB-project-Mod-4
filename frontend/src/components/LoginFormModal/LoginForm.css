@@ -1,3 +1,38 @@
-/* .log-in-container {
-    background-color: pink;
-} */
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+#heading {
+    font-size: large;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#modal-content {
+    border-radius: 15px; /*Why isn't this doing anything*/
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0px 20px 20px 20px;
+}
+
+.form-label {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: gray;
+    font-size: x-small;
+}
+
+.login-button {
+    color: gray;
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    box-shadow: 3px 3px gray;
+}

@@ -31,10 +31,10 @@ const LoginFormModal = () => {
   };
 
   return (
-    <div className="log-in-container">
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username or Email
+    <div className="login-container">
+      <h1 id="heading">Log In</h1>
+      <form onSubmit={handleSubmit} className="login-form">
+        <label className="form-label">Username or Email
             <input
             type="text"
             value={credential}
@@ -42,7 +42,7 @@ const LoginFormModal = () => {
             required
             />
         </label>
-        <label>Password
+        <label className="form-label">Password
             <input
             type="password"
             value={password}
@@ -51,7 +51,7 @@ const LoginFormModal = () => {
             />
         </label>
         {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">login</button>
+        <button type="submit" className="login-button">Log In</button>
       </form>
     </div>
   );
