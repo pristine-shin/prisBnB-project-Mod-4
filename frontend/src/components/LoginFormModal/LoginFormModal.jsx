@@ -36,6 +36,7 @@ const LoginFormModal = () => {
       <form onSubmit={handleSubmit} className="login-form">
         <label className="form-label">Username or Email
             <input
+            className="form-input"
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -44,6 +45,7 @@ const LoginFormModal = () => {
         </label>
         <label className="form-label">Password
             <input
+            className="form-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
