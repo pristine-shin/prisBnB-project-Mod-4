@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
+import { IoIosMenu } from "react-icons/io";
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
@@ -36,8 +37,9 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button onClick={toggleMenu} id='menu-button'>
+        <IoIosMenu />
+        <FaUserCircle id='profile-logo'/>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>

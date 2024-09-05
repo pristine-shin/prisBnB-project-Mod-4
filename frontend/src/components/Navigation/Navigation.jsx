@@ -4,6 +4,7 @@ import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { SiAirbnb } from "react-icons/si";
 import './Navigation.css'
 
 const Navigation = ({ isLoaded }) => {
@@ -34,9 +35,10 @@ const Navigation = ({ isLoaded }) => {
       );
 
       return (
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
+        <ul className='navbar'>
+          <li className='home-container'>
+            <SiAirbnb id='logo'/>
+            <NavLink to="/" id='home-button'>prisbnb</NavLink>
           </li>
           {isLoaded && sessionLinks}
         </ul>
