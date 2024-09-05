@@ -49,71 +49,59 @@ function SignupFormModal() {
     <div className='signup-container'>
       <h1 id='heading'>Sign Up</h1>
       <form onSubmit={handleSubmit} className='signup-form'>
-        <label className='form-label'>
-          Email
           <input
-          className='form-input'
+            placeholder='Email'
+            className='form-input'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
         {errors.email && <p>{errors.email}</p>}
-        <label className='form-label'>
-          Username
           <input
+            placeholder='Username'
             className='form-input'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
         {errors.username && <p>{errors.username}</p>}
-        <label className='form-label'>
-          First Name
           <input
+            placeholder='First Name'
             className='form-input'
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
         {errors.firstName && <p>{errors.firstName}</p>}
-        <label className='form-label'>
-          Last Name
           <input
+            placeholder='Last Name'
             className='form-input'
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </label>
         {errors.lastName && <p>{errors.lastName}</p>}
-        <label className='form-label'>
-          Password
           <input
+            placeholder='Password'
             className='form-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
         {errors.password && <p>{errors.password}</p>}
-        <label className='form-label'>
-          Confirm Password
           <input
+            placeholder='Confirm Password'
             className='form-input'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit" id='signup-button'>Sign Up</button>
       </form>
