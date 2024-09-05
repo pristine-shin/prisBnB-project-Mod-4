@@ -1,0 +1,11 @@
+.all-spots-container{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.spot-info{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0px;
+}

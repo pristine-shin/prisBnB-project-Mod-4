@@ -6,13 +6,13 @@ const LOAD_SPOTS = 'spot/load_spots'
 //regular action creator
 const loadSpots = (spots) => {
   return {
-    type: ADD_SESSION,
+    type: LOAD_SPOTS,
     spots
   };
 };
 
 // thunk action creator
-export const getSpots = (spots) => async (dispatch) => {
+export const getSpots = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots');
 
   if (response.ok) {
