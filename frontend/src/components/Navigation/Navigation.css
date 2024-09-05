@@ -1,0 +1,46 @@
+.hidden {
+    display: none
+}
+
+#menu-button {
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 5px 5px 5px;
+    font-size: large;
+    border: 1.5px solid rgb(179, 178, 178);
+}
+
+#profile-logo{
+    padding-left: 5px;
+    color: rgb(86, 86, 86)
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid rgb(179, 178, 178);
+    padding: 10px 20px 20px 10px;
+    list-style: none;
+}
+.home-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#logo {
+    font-size: x-large;
+    color: rgb(238, 66, 86);
+}
+
+#home-button {
+    text-decoration: none;
+    font-weight: 600;
+    color: rgb(238, 66, 86);
+    padding-left: 5px;
+}
+
+.profile-button {
+    border: none;
+}
