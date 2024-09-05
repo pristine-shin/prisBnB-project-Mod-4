@@ -1,7 +1,8 @@
 import { csrfFetch } from './csrf';
 
 // constant to avoid debugging typos
-const LOAD_SPOTS = 'spot/load_spots'
+const LOAD_SPOTS = 'spot/load_spots';
+const ADD_SPOT = 'spot/add_spot';
 
 //regular action creator
 const loadSpots = (spots) => {
@@ -10,6 +11,13 @@ const loadSpots = (spots) => {
     spots
   };
 };
+
+const addSpot = (spot) => {
+  return {
+    type: ADD_SPOT,
+    spot
+  }
+}
 
 // thunk action creator
 export const getSpots = () => async (dispatch) => {
@@ -22,6 +30,22 @@ export const getSpots = () => async (dispatch) => {
   }
 }
 
+export const createSpot = (spot) => async (dispatch) => {
+  const { address, city, state, country, lat, lng, name, description, price } = spot;
+  const res = await csrfFetch('/api/spots', {
+    method: 'POST',
+    body: JSON.stringify({
+      address, city, state, country, lat, lng, name, description, price
+    })
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(addSpot(data.Spot));
+    return response;
+  }
+}
+
 // reducer
 const initialState = {};
 
@@ -29,6 +53,10 @@ const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SPOTS: {
       const newState = {...state, Spots: action.spots};
+      return newState;
+    }
+    case ADD_SPOT: {
+      const newState = {...state, ...action.spot.Spot};
       return newState;
     }
     default:
