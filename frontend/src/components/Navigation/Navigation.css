@@ -24,6 +24,18 @@
     padding: 10px 20px 20px 10px;
     list-style: none;
 }
+
+.navbar-right {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+#create-spot-link{
+    text-decoration: none;
+    color: rgb(15, 105, 84);
+    padding-right: 10px;
+}
 .home-container {
     display: flex;
     justify-content: space-around;
@@ -36,6 +48,7 @@
 
 #home-button {
     text-decoration: none;
+    font-size: x-large;
     font-weight: 600;
     color: rgb(238, 66, 86);
     padding-left: 5px;

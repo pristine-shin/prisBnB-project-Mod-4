@@ -12,11 +12,14 @@ const Navigation = ({ isLoaded }) => {
     const currUser = useSelector((state) => state.session.user);
 
     const sessionLinks = currUser ? (
-        <>
+      <ul className='navbar-right'>
+          <li>
+            <NavLink to='/spots/new' id='create-spot-link'>Create a New Spot</NavLink>
+          </li>
           <li>
             <ProfileButton user={currUser} />
           </li>
-        </>
+      </ul>
       ) : (
         <>
           <li>
