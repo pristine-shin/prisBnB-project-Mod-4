@@ -48,8 +48,15 @@ function CreateSpotFormPage() {
   };
 
   return (
-    <div className='create-spot-container'>
-      <h1 id='heading'>Create a new Spot</h1>
+    <div className='create-spot-container'
+    style={{
+      width: "33%",
+      display: "flex",
+      flexDirection: "column",
+      marginLeft: "33%",
+
+      }}>
+      <h1>Create a new Spot</h1>
       <h2>Where's your place located?</h2>
       <h3>Guests will only get your exact address once they booked a reservation.</h3>
       <form onSubmit={handleSubmit} className='create-spot-form'>
@@ -128,6 +135,7 @@ function CreateSpotFormPage() {
             placeholder='Please write at least 30 characters'
             className='form-input'
             type="text"
+            
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required

@@ -52,7 +52,7 @@ const initialState = {};
 const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SPOTS: {
-      const newState = {...state, Spots: action.spots};
+      const newState = {...state, Spots: action.spots};//could turn this into an object with each spot id as the key so lookup time is faster
       return newState;
     }
     case ADD_SPOT: {
