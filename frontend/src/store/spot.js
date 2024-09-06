@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 // constant to avoid debugging typos
 const LOAD_SPOTS = 'spot/load_spots';
 const ADD_SPOT = 'spot/add_spot';
+const LOAD_DETAILS = 'spot/load_details';
 
 //regular action creator
 const loadSpots = (spots) => {
@@ -16,6 +17,14 @@ const addSpot = (spot) => {
   return {
     type: ADD_SPOT,
     spot
+  }
+}
+
+//I dont think i need this? i can get the id from the load spots
+const loadDetails = (spotId) => {
+  return {
+    type: LOAD_DETAILS,
+    spotId
   }
 }
 
@@ -41,7 +50,17 @@ export const createSpot = (spot) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(addSpot(data.spotpot));
+    dispatch(addSpot(data.spot));
+    return response;
+  }
+}
+
+export const getSpotById = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadDetails(data));
     return response;
   }
 }
@@ -56,7 +75,11 @@ const spotReducer = (state = initialState, action) => {
       return newState;
     }
     case ADD_SPOT: {
-      const newState = {...state, ...action.spot.spotpot};
+      const newState = {...state, ...action.spot.spot};
+      return newState;
+    }
+    case LOAD_DETAILS: {
+      const newState = {...state, ...action.spotId};//dont think this will do it but lets see
       return newState;
     }
     default:
