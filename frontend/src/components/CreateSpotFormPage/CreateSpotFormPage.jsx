@@ -57,7 +57,7 @@ function CreateSpotFormPage() {
 
       }}>
       <h1>Create a new Spot</h1>
-      <h2>Where's your place located?</h2>
+      <h2>Where`&apos;s your place located?</h2>
       <h3>Guests will only get your exact address once they booked a reservation.</h3>
       <form onSubmit={handleSubmit} className='create-spot-form'>
         <label>Country
@@ -67,7 +67,7 @@ function CreateSpotFormPage() {
             type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            required
+            // required
           />
         </label>
         {errors.country && <p>{errors.country}</p>}
@@ -78,7 +78,7 @@ function CreateSpotFormPage() {
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            required
+            // required
           />
         </label>
         {errors.address && <p>{errors.address}</p>}
@@ -89,7 +89,7 @@ function CreateSpotFormPage() {
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            required
+            // required
           />
         </label>
         {errors.city && <p>{errors.city}</p>}
@@ -100,7 +100,7 @@ function CreateSpotFormPage() {
             type="text"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            required
+            // required
           />
         </label>
         {errors.state && <p>{errors.state}</p>}
@@ -111,7 +111,7 @@ function CreateSpotFormPage() {
             type="text"
             value={lat}
             onChange={(e) => setLat(e.target.value)}
-            required
+            // required
           />
         </label>
         {errors.lat && <p>{errors.lat}</p>}
@@ -122,7 +122,7 @@ function CreateSpotFormPage() {
             type="text"
             value={lng}
             onChange={(e) => setLng(e.target.value)}
-            required
+            // required
           />
         </label>
         {errors.lng && <p>{errors.lng}</p>}
@@ -135,24 +135,26 @@ function CreateSpotFormPage() {
             placeholder='Please write at least 30 characters'
             className='form-input'
             type="text"
-            
+
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
+            // required
         />
+        {errors.description && <p>{errors.description}</p>}
 
         <hr />
 
         <h2>Create a title for your spot</h2>
-        <h3>Catch guests' attention with a spot title that highlights what makes your place special.</h3>
+        <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special.</h3>
         <input
             placeholder='Name of your spot'
             className='form-input'
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
+            // required
         />
+        {errors.name && <p>{errors.name}</p>}
 
         <hr />
 
@@ -165,9 +167,10 @@ function CreateSpotFormPage() {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            required
+            // required
         />
         </label>
+        {errors.price && <p>{errors.price}</p>}
 
         <hr />
 

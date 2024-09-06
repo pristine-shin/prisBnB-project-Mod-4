@@ -487,6 +487,9 @@ const validateSpot = [
         .isFloat({min: -180, max: 180})
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
+        .notEmpty()
+        .withMessage('Name is required'),
+    check('name')
         .isLength({max: 50})
         .withMessage('Name must be less than 50 characters'),
     check('description')
