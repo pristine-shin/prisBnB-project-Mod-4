@@ -57,7 +57,7 @@ function CreateSpotFormPage() {
 
       }}>
       <h1>Create a new Spot</h1>
-      <h2>Where`&apos;s your place located?</h2>
+      <h2>Where&apos;s your place located?</h2>
       <h3>Guests will only get your exact address once they booked a reservation.</h3>
       <form onSubmit={handleSubmit} className='create-spot-form'>
         <label>Country
@@ -131,11 +131,11 @@ function CreateSpotFormPage() {
 
         <h2>Describe your place to guests</h2>
         <h3>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</h3>
-        <input
+        <textarea
             placeholder='Please write at least 30 characters'
             className='form-input'
             type="text"
-
+            rows='7'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             // required
