@@ -163,7 +163,7 @@ router.get('/:spotId', async (req, res, next) => {
     if (starsArr.length) {
         const sumStars = starsArr.reduce((acc, curr) => acc + curr,);
 
-        spotCopy.avgRating = sumStars/spot.Reviews.length;
+        spotCopy.avgRating = sumStars/spotCopy.Reviews.length;
         delete spotCopy.Reviews;
     } else {
         spotCopy.avgRating = null;
