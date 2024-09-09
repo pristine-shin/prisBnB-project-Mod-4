@@ -26,16 +26,16 @@ const SpotDetailsPage = () => {
                     <div>
                         <h2>{spotDetails.name}</h2>
                         <h3>{spotDetails.city}, {spotDetails.state}, {spotDetails.country}</h3>
-                        <ul className="spot-images-container">
-                            <li>
+                        <div className="spot-images-container">
+                            <div className="preview-image">
                                 <img src={spotDetails.SpotImages.find(image => image.preview === true).url} alt="preview-image" />
-                            </li>
-                            {spotDetails.SpotImages.slice(1).map((image) => (
-                                <li key={image.id}>
-                                    <img src={image.url} alt="spot-image" className="spot-images"/>
-                                </li>
-                            ))}
-                        </ul>
+                            </div>
+                            <div className="smaller-images">
+                                {spotDetails.SpotImages.slice(1, 5).map((image, idx) => (
+                                    <img key={idx} src={image.url} alt={`Spot Image ${idx}`} className="spot-images" />
+                                ))}
+                            </div>
+                        </div>
                         <div className="description-price-container">
                             <div className="description-container">
                                 <h3>Hosted by {spotDetails.Owner.firstName} {spotDetails.Owner.lastName}</h3>
