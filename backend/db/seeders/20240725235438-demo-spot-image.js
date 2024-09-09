@@ -25,42 +25,105 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: 'https://example.com/cozy_cottage.jpg',
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725900697/cntraveler_visiting-the-shire-by-drone_xpldjc.jpg',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        spotId: 2,
-        url: 'https://example.com/urban_homestead_1.jpg',
-        preview: true,
+        spotId: 1,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725900789/old-times-farmhouse_vqd3px.jpg',
+        preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        spotId: 2,
-        url: 'https://example.com/urban_homestead_2.jpg',
+        spotId: 1,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725907540/hobbiton_autumn-43_ho8ugo.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 1,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725907538/hobbiton_april-17-sjp-40_hfob5n.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 1,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725907538/bagshot_row_hero-2023-sjp-16_coihhk.jpg',
         preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: 3,
-        url: 'https://example.com/modern_apartment_1.jpg',
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725907750/SRB_2311041310_send_web_nh0yhh.jpg',
         preview: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: 3,
-        url: 'https://example.com/modern_apartment_2.jpg',
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725900871/WEB-10.jpg_g5jkz4.jpg',
         preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         spotId: 3,
-        url: 'https://example.com/modern_apartment_3.jpg',
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725900873/60-West-15th-Street-11-1024x682_cdqf5c.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 3,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725907873/9715e7c4-0b8e-4922-8572-bf030499982b._mxpk28.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 3,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725907919/Big-Foot-Tours-1024x768_sxcm6n.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 2,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725901213/Treeframe_Cabin_3A_Cabins_in_Washington_nvlgcu.jpg',
+        preview: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 2,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725901216/1988780924_u1pqhl.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 2,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725901219/Cozy-cabin-interior-design-for-a-combined-living-and-dining-room-scaled_v0blb0.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 2,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725901220/bed_20lg_jgxhry.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 2,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725901222/1_SleepSoundly_z9qj9y.jpg',
         preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
