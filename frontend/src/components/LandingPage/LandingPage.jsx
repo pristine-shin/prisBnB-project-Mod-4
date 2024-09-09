@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { getSpots } from "../../store/spot";
 import { useDispatch, useSelector } from "react-redux";
 import { MdStarRate } from "react-icons/md";
@@ -21,12 +22,14 @@ const LandingPage = () => {
     <ul className="all-spots-container">
       {allSpots.map(({ id, previewImage, city, state, avgRating, price }) => (
         <li key={id} className="spot-card">
-          <img src={previewImage} alt="spot-image" className="spot-image"/>
-          <div className="spot-info">
-            <div>{city}, {state}</div>
-            <div><MdStarRate />{avgRating}</div>
-          </div>
-          <div className="spot-price">${price} night</div>
+          <NavLink to={`/spots/${id}`} className="spot-link">
+            <img src={previewImage} alt="spot-image" className="spot-image"/>
+            <div className="spot-info">
+              <div>{city}, {state}</div>
+              <div><MdStarRate />{avgRating}</div>
+            </div>
+            <div className="spot-price">${price} night</div>
+          </NavLink>
         </li>
       ))}
     </ul>
