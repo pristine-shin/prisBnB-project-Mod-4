@@ -127,6 +127,41 @@ module.exports = {
         preview: false,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        spotId: 4,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725925476/How-to-Buy-a-Beach-House_rrflgv.jpg',
+        preview: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 4,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725925478/Maya_Luxe_Riviera_Maya__Beach_House_2021_HERO_2_meqksh.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 4,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725925476/tiny-beach-house-designs-for-privacy-6520-1685693866974_wsy1m2.webp',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 4,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725925477/hotel-2_b7ezth.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        spotId: 4,
+        url: 'https://res.cloudinary.com/dmvfvyilq/image/upload/v1725925476/Desktop_Header-Ocean-View-from-North-Deck-at-the-Annenberg-Community-Beach-House_fg2413.jpg',
+        preview: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
 
     ], { validate: true });

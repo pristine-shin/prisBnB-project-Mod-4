@@ -19,9 +19,9 @@ const LandingPage = () => {
     )
   }
   return (
-    <ul className="all-spots-container">
+    <div className="all-spots-container">
       {allSpots.map(({ id, previewImage, city, state, avgRating, price }) => (
-        <li key={id} className="spot-card">
+        <div key={id} className="spot-card">
           <NavLink to={`/spots/${id}`} className="spot-link">
             <img src={previewImage} alt="spot-image" className="spot-image"/>
             <div className="spot-info">
@@ -30,9 +30,9 @@ const LandingPage = () => {
             </div>
             <div className="spot-price">${price} night</div>
           </NavLink>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
 

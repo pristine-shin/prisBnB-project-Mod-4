@@ -65,6 +65,20 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        ownerId: 3,
+        address: '999 Ocean Ave',
+        city: 'Beachtown',
+        state: 'FL',
+        country: 'USA',
+        lat: 46.8596,
+        lng: -94.1470,
+        name: 'Beachfront Paradise',
+        description: 'A serene oasis by the sea.',
+        price: 500.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
 
     ], { validate: true });
   },
