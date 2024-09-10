@@ -17,10 +17,10 @@ function CreateSpotFormPage() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [previewImgUrl, setPreviewImgUrl] = useState("");
-  // const [img1Url, setImg1Url] = useState("");
-  // const [img2Url, setImg2Url] = useState("");
-  // const [img3Url, setImg3Url] = useState("");
-  // const [img4Url, setImg4Url] = useState("");
+  const [img1Url, setImg1Url] = useState("");
+  const [img2Url, setImg2Url] = useState("");
+  const [img3Url, setImg3Url] = useState("");
+  const [img4Url, setImg4Url] = useState("");
   const [errors, setErrors] = useState({});
 
 
@@ -45,10 +45,10 @@ function CreateSpotFormPage() {
         })
       )
         .then(({id}) => dispatch(postSpotImage({spotId: id, url: previewImgUrl, preview: true})))
-        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img1Url, preview: false})))
-        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img2Url, preview: false})))
-        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img3Url, preview: false})))
-        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img4Url, preview: false})))
+        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img1Url, preview: false})))
+        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img2Url, preview: false})))
+        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img3Url, preview: false})))
+        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img4Url, preview: false})))
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {
@@ -201,7 +201,7 @@ function CreateSpotFormPage() {
             value={previewImgUrl}
             onChange={(e) => setPreviewImgUrl(e.target.value)}
           />
-          {/* <input
+          <input
             placeholder='Image URL'
             className='form-input'
             type="url"
@@ -228,7 +228,7 @@ function CreateSpotFormPage() {
             type="url"
             value={img4Url}
             onChange={(e) => setImg4Url(e.target.value)}
-          /> */}
+          />
         </div>
         <hr />
         <div className='create-spot-button-section'>

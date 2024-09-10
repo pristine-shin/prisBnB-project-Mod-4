@@ -81,7 +81,8 @@ export const postSpotImage = (image) => async(dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(addImage(data));
-    return res;
+    console.log(data)
+    return data;
   }
 }
 
