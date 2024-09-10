@@ -22,10 +22,10 @@ const addSpot = (spot) => {
   }
 };
 
-const addImage = (spotId) => {
+const addImage = (image) => {
   return {
     type: ADD_IMAGE,
-    spotId
+    image
   }
 }
 
@@ -116,8 +116,12 @@ const spotReducer = (state = initialState, action) => {
       return newState;
     }
     case ADD_SPOT: {
-      const newState = {...state, ...action.spot.spot};
+      const newState = {...state, ...action.spot};
       return newState;
+    }
+    case ADD_IMAGE: {
+      const newState = {...state};
+      newState.SpotImages.push(...action.image);
     }
     case LOAD_DETAILS: {
       const newState = {...state, ...action.spotId};//dont think this will do it but lets see

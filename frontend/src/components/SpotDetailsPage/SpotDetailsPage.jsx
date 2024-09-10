@@ -30,6 +30,7 @@ const SpotDetailsPage = () => {
                     <div className="spot-details-container">
                         <h2>{spotDetails.name}</h2>
                         <h3>{spotDetails.city}, {spotDetails.state}, {spotDetails.country}</h3>
+                        { spotDetails.SpotImages.length ?
                         <div className="spot-images-container">
                             <div className="preview-image">
                                 <img src={spotDetails.SpotImages.find(image => image.preview === true).url} alt="preview-image" />
@@ -40,6 +41,10 @@ const SpotDetailsPage = () => {
                                 ))}
                             </div>
                         </div>
+                        :
+
+                        <div>No Images Yet</div>
+                        }
                         <div className="description-price-container">
                             <div className="description-container">
                                 <h3>Hosted by {spotDetails.Owner.firstName} {spotDetails.Owner.lastName}</h3>
@@ -50,14 +55,14 @@ const SpotDetailsPage = () => {
                             <div className="price-container">
                                 <div className="price-details">
                                     <h3>${spotDetails.price} night</h3>
-                                    <div><MdStarRate />{spotDetails.avgRating.toFixed(2)} <LuDot /> {spotDetails.numReviews} reviews</div>
+                                    <div><MdStarRate />{spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</div>
                                 </div>
                                 <button id="reserve-button" onClick={handleClick}>Reserve</button>
                             </div>
                         </div>
                         <hr />
                         <div className="reviews-outer-container">
-                            <h3><MdStarRate />{spotDetails.avgRating.toFixed(2)} <LuDot /> {spotDetails.numReviews} reviews</h3>
+                            <h3><MdStarRate />{spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</h3>
                             <div className="reviews-inner-container">
                                 {spotDetails.Reviews.map(review => (
                                     <div key={review.id} className="single-review">
