@@ -16,11 +16,11 @@ function CreateSpotFormPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [previewImg, setPreviewImg] = useState("");
-  const [img1, setImg1] = useState("");
-  const [img2, setImg2] = useState("");
-  const [img3, setImg3] = useState("");
-  const [img4, setImg4] = useState("");
+  const [previewImgUrl, setPreviewImgUrl] = useState("");
+  // const [img1Url, setImg1Url] = useState("");
+  // const [img2Url, setImg2Url] = useState("");
+  // const [img3Url, setImg3Url] = useState("");
+  // const [img4Url, setImg4Url] = useState("");
   const [errors, setErrors] = useState({});
 
 
@@ -30,6 +30,7 @@ function CreateSpotFormPage() {
     e.preventDefault();
     if (sessionUser) {
       setErrors({});
+
       return dispatch(
         createSpot({
           address,
@@ -43,11 +44,11 @@ function CreateSpotFormPage() {
           price
         })
       )
-        .then(dispatch(postSpotImage({ url: previewImg, preview: true})))
-        .then(dispatch(postSpotImage({url: img1, preview: false})))
-        .then(dispatch(postSpotImage({url: img2, preview: false})))
-        .then(dispatch(postSpotImage({url: img3, preview: false})))
-        .then(dispatch(postSpotImage({url: img4, preview: false})))
+        .then(({id}) => dispatch(postSpotImage({spotId: id, url: previewImgUrl, preview: true})))
+        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img1Url, preview: false})))
+        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img2Url, preview: false})))
+        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img3Url, preview: false})))
+        // .then(dispatch(postSpotImage({spotId: newSpot.id, url: img4Url, preview: false})))
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {
@@ -197,37 +198,37 @@ function CreateSpotFormPage() {
             placeholder='Preview Image URL'
             className='form-input'
             type="url"
-            value={previewImg}
-            onChange={(e) => setPreviewImg(e.target.value)}
+            value={previewImgUrl}
+            onChange={(e) => setPreviewImgUrl(e.target.value)}
+          />
+          {/* <input
+            placeholder='Image URL'
+            className='form-input'
+            type="url"
+            value={img1Url}
+            onChange={(e) => setImg1Url(e.target.value)}
           />
           <input
             placeholder='Image URL'
             className='form-input'
             type="url"
-            value={img1}
-            onChange={(e) => setImg1(e.target.value)}
+            value={img2Url}
+            onChange={(e) => setImg2Url(e.target.value)}
           />
           <input
             placeholder='Image URL'
             className='form-input'
             type="url"
-            value={img2}
-            onChange={(e) => setImg2(e.target.value)}
+            value={img3Url}
+            onChange={(e) => setImg3Url(e.target.value)}
           />
           <input
             placeholder='Image URL'
             className='form-input'
             type="url"
-            value={img3}
-            onChange={(e) => setImg3(e.target.value)}
-          />
-          <input
-            placeholder='Image URL'
-            className='form-input'
-            type="url"
-            value={img4}
-            onChange={(e) => setImg4(e.target.value)}
-          />
+            value={img4Url}
+            onChange={(e) => setImg4Url(e.target.value)}
+          /> */}
         </div>
         <hr />
         <div className='create-spot-button-section'>
