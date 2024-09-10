@@ -3,8 +3,9 @@ import { csrfFetch } from './csrf';
 // constant to avoid debugging typos
 const LOAD_SPOTS = 'spot/load_spots';
 const ADD_SPOT = 'spot/add_spot';
-const LOAD_DETAILS = 'spot/load_details';
 const ADD_IMAGE = 'spot/add_image';
+const LOAD_DETAILS = 'spot/load_details';
+const LOAD_REVIEWS = 'spot/load_reviews'
 
 //regular action creator
 const loadSpots = (spots) => {
@@ -32,6 +33,13 @@ const addImage = (spotId) => {
 const loadDetails = (spotId) => {
   return {
     type: LOAD_DETAILS,
+    spotId
+  }
+}
+
+const loadReviews = (spotId) => {
+  return {
+    type: LOAD_REVIEWS,
     spotId
   }
 }
@@ -87,6 +95,17 @@ export const getSpotById = (spotId) => async (dispatch) => {
   }
 }
 
+export const getReviewsBySpotId = (spotId) => async(dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadReviews(data.Reviews));
+    return res;
+  }
+}
+
+
 // reducer
 const initialState = {};
 
@@ -102,6 +121,10 @@ const spotReducer = (state = initialState, action) => {
     }
     case LOAD_DETAILS: {
       const newState = {...state, ...action.spotId};//dont think this will do it but lets see
+      return newState;
+    }
+    case LOAD_REVIEWS: {
+      const newState = {...state, Reviews: action.spotId};
       return newState;
     }
     default:

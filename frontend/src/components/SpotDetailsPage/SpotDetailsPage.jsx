@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import { getSpotById } from "../../store/spot";
+import { getSpotById, getReviewsBySpotId } from "../../store/spot";
 import { useDispatch, useSelector } from "react-redux";
 import { MdStarRate } from "react-icons/md";
+import { LuDot } from "react-icons/lu";
 import './SpotDetails.css'
 
 const SpotDetailsPage = () => {
@@ -12,11 +13,11 @@ const SpotDetailsPage = () => {
     const spotDetails = useSelector(state => state.spot)
 
     useEffect(() => {
-        dispatch(getSpotById(spotId)).then(() => { setisLoading(true) })
+        dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId))).then(() => { setisLoading(true) })
     }, [dispatch, spotId]);
 
     // const previewImg = spotDetails.SpotImages.find(image => image.preview === true);
-    // console.log(previewImg);
+    // console.log(spotDetails);
 
     return (
         <>
@@ -45,16 +46,25 @@ const SpotDetailsPage = () => {
                             </div>
                             <div className="price-container">
                                 <div className="price-details">
-                                    <h3>${spotDetails.price}night</h3>
-                                    <div><MdStarRate />{spotDetails.avgRating}</div>
-                                    <div>{spotDetails.numReviews} reviews</div>
+                                    <h3>${spotDetails.price} night</h3>
+                                    <div><MdStarRate />{spotDetails.avgRating.toFixed(2)} <LuDot /> {spotDetails.numReviews} reviews</div>
                                 </div>
                                 <button id="reserve-button">Reserve</button>
                             </div>
                         </div>
                         <hr />
-                        <div className="reviews-container">
-                            Reviews will go here.
+                        <div className="reviews-outer-container">
+                            <h3><MdStarRate />{spotDetails.avgRating.toFixed(2)} <LuDot /> {spotDetails.numReviews} reviews</h3>
+                            <div className="reviews-inner-container">
+                                {spotDetails.Reviews.map(review => (
+                                    <div key={review.id} className="single-review">
+                                        <div className="reviewer-name">{review.User.firstName}</div>
+                                        <div className="review-date">Month {review.createdAt.slice(0,4)}</div>
+                                        <div className="review-text">{review.review}</div>
+                                    </div>
+                                ))}
+                            </div>
+
                         </div>
                     </div>
 
