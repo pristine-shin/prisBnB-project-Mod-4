@@ -18,6 +18,9 @@ const SpotDetailsPage = () => {
 
     // const previewImg = spotDetails.SpotImages.find(image => image.preview === true);
     // console.log(spotDetails);
+    const handleClick = () => {
+        alert('Feature Coming Soon...')
+    }
 
     return (
         <>
@@ -49,7 +52,7 @@ const SpotDetailsPage = () => {
                                     <h3>${spotDetails.price} night</h3>
                                     <div><MdStarRate />{spotDetails.avgRating.toFixed(2)} <LuDot /> {spotDetails.numReviews} reviews</div>
                                 </div>
-                                <button id="reserve-button">Reserve</button>
+                                <button id="reserve-button" onClick={handleClick}>Reserve</button>
                             </div>
                         </div>
                         <hr />
