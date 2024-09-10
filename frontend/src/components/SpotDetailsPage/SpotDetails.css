@@ -1,3 +1,7 @@
+.spot-details-container{
+  margin: 0px 40px 40px 40px;
+}
+
 .spot-images-container{
   display: grid;
   width: 100%;
@@ -28,4 +32,34 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.description-price-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-container{
+  border: 2px solid black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 125px;
+  margin: 18px 0px 0px 18px;
+}
+
+.price-details{
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#reserve-button{
+  margin: 0px 20px 0px 20px;
+  height: 40px;
+  background-color: rgb(255, 63, 86);
+  color: white;
+  box-shadow: 3px 3px black;
+
 }

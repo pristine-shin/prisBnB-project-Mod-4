@@ -23,7 +23,7 @@ const SpotDetailsPage = () => {
             {
                 isLoading ?
 
-                    <div>
+                    <div className="spot-details-container">
                         <h2>{spotDetails.name}</h2>
                         <h3>{spotDetails.city}, {spotDetails.state}, {spotDetails.country}</h3>
                         <div className="spot-images-container">
@@ -49,9 +49,10 @@ const SpotDetailsPage = () => {
                                     <div><MdStarRate />{spotDetails.avgRating}</div>
                                     <div>{spotDetails.numReviews} reviews</div>
                                 </div>
-                                <button>Reserve</button>
+                                <button id="reserve-button">Reserve</button>
                             </div>
                         </div>
+                        <hr />
                         <div className="reviews-container">
                             Reviews will go here.
                         </div>
