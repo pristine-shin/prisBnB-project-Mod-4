@@ -71,11 +71,12 @@ export const createSpot = (spot) => async (dispatch) => {
   }
 }
 
-export const postSpotImage = (image) => async(dispatch) => {
-  const { url, preview } = image;
-  const res = await csrfFetch(`/api/${spotId}/images`, {
+export const postSpotImage = (spotId, image) => async(dispatch) => {
+  // const { url, preview } = image;
+  const res = await csrfFetch(`/api/spots/${spotId}/images`, {
     method: 'POST',
-    body: JSON.stringify({url, preview})
+    // body: JSON.stringify({url, preview})
+    body: JSON.stringify(image)
   });
 
   if (res.ok) {
@@ -122,6 +123,7 @@ const spotReducer = (state = initialState, action) => {
     case ADD_IMAGE: {
       const newState = {...state};
       newState.SpotImages.push(...action.image);
+      return newState;
     }
     case LOAD_DETAILS: {
       const newState = {...state, ...action.spotId};//dont think this will do it but lets see

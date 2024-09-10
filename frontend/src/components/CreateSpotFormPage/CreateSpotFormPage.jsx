@@ -43,11 +43,11 @@ function CreateSpotFormPage() {
           price
         })
       )
-        .then(dispatch(postSpotImage(previewImg, true)))
-        .then(dispatch(postSpotImage(img1, false)))
-        .then(dispatch(postSpotImage(img2, false)))
-        .then(dispatch(postSpotImage(img3, false)))
-        .then(dispatch(postSpotImage(img4, false)))
+        .then(dispatch(postSpotImage({ url: previewImg, preview: true})))
+        .then(dispatch(postSpotImage({url: img1, preview: false})))
+        .then(dispatch(postSpotImage({url: img2, preview: false})))
+        .then(dispatch(postSpotImage({url: img3, preview: false})))
+        .then(dispatch(postSpotImage({url: img4, preview: false})))
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {
