@@ -328,6 +328,7 @@ const validateReview = [
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
 
     const { review, stars } = req.body;
+    // console.log('backend test', review, stars)
     const { user } = req;
 
     const spotFromId = await Spot.findByPk(req.params.spotId);
@@ -346,7 +347,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     }
 
     for (let review of spotReviews) {
-        if (review.userId = user.id) {
+        if (review.userId === user.id) {
             res.status(500);
             return res.json({
                 "message": "User already has a review for this spot"
@@ -363,6 +364,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         updatedAt: new Date()
     })
 
+    console.log(newReview);
     res.status(201);
     return res.json(newReview);
 })
