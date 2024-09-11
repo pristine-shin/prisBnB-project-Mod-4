@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginFormModal = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const currUser = useSelector((state) => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");

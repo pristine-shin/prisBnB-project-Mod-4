@@ -69,13 +69,13 @@ const SpotDetailsPage = () => {
                             <h3><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</h3>
                             <div className="reviews-inner-container">
                                 {
-                                    currUser ? (
+                                    currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id))? (
                                         <OpenModalButton
                                             buttonText="Post Your Review"
                                             modalComponent={<CreateReviewFormModal />}
                                         />
                                     ) : (
-                                        <div>You need to be signed in to write a review</div>
+                                        <div></div>
                                     )
                                 }
                                 {spotDetails.Reviews.map(review => (
