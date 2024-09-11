@@ -120,6 +120,7 @@ const spotReducer = (state = initialState, action) => {
       const newState = {...state, ...action.spot};
       return newState;
     }
+    //might not need this one?
     case ADD_IMAGE: {
       const newState = {...state, ...action.image};
       return newState;

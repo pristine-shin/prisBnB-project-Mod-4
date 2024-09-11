@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createSpot, postSpotImage } from '../../store/spot';
 import './CreateSpotForm.css'
 
 function CreateSpotFormPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -31,41 +32,41 @@ function CreateSpotFormPage() {
     if (sessionUser) {
       setErrors({});
 
-      return dispatch(
-        createSpot({
-          address,
-          city,
-          state,
-          country,
-          lat,
-          lng,
-          name,
-          description,
-          price
-        })
+      const newSpot = {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+      }
+
+      dispatch(
+        createSpot(newSpot)
       )
         .then(spot => {
-          dispatch(postSpotImage({spotId: spot.id, url: previewImgUrl, preview: true}))
+          dispatch(postSpotImage({ spotId: spot.id, url: previewImgUrl, preview: true }))
           return spot.id
         })
         .then((id) => {
-          dispatch(postSpotImage({spotId: id, url: img1Url, preview: false}))
+          dispatch(postSpotImage({ spotId: id, url: img1Url, preview: false }))
           return id;
         })
         .then((id) => {
-          dispatch(postSpotImage({spotId: id, url: img2Url, preview: false}))
+          dispatch(postSpotImage({ spotId: id, url: img2Url, preview: false }))
           return id;
         })
         .then((id) => {
-          dispatch(postSpotImage({spotId: id, url: img3Url, preview: false}))
+          dispatch(postSpotImage({ spotId: id, url: img3Url, preview: false }))
           return id;
         })
         .then((id) => {
-          dispatch(postSpotImage({spotId: id, url: img4Url, preview: false}))
+          dispatch(postSpotImage({ spotId: id, url: img4Url, preview: false }))
+          navigate(`/spots/${id}`)
           return id;
-        })
-        .then((id) => {
-          return <Navigate to={`/spots/${id}`} replace={true} />;
         })
         .catch(async (res) => {
           const data = await res.json();
