@@ -66,7 +66,8 @@ export const createSpot = (spot) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(addSpot(data.spot));
-    // console.log(data)
+
+
     return data;
   }
 }
@@ -81,8 +82,7 @@ export const postSpotImage = (image) => async(dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(addImage(data));
-    console.log(data)
-    return data;
+    return res;
   }
 }
 
@@ -92,7 +92,7 @@ export const getSpotById = (spotId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(loadDetails(data));
-    return response;
+    return data.SpotImages;
   }
 }
 
@@ -121,9 +121,7 @@ const spotReducer = (state = initialState, action) => {
       return newState;
     }
     case ADD_IMAGE: {
-      const newState = {...state};
-      newState.SpotImages.push({...action.image});
-      console.log(newState);
+      const newState = {...state, ...action.image};
       return newState;
     }
     case LOAD_DETAILS: {

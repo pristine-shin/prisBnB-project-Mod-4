@@ -44,11 +44,29 @@ function CreateSpotFormPage() {
           price
         })
       )
-        .then(({id}) => dispatch(postSpotImage({spotId: id, url: previewImgUrl, preview: true})))
-        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img1Url, preview: false})))
-        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img2Url, preview: false})))
-        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img3Url, preview: false})))
-        .then(({spotId}) => dispatch(postSpotImage({spotId, url: img4Url, preview: false})))
+        .then(spot => {
+          dispatch(postSpotImage({spotId: spot.id, url: previewImgUrl, preview: true}))
+          return spot.id
+        })
+        .then((id) => {
+          dispatch(postSpotImage({spotId: id, url: img1Url, preview: false}))
+          return id;
+        })
+        .then((id) => {
+          dispatch(postSpotImage({spotId: id, url: img2Url, preview: false}))
+          return id;
+        })
+        .then((id) => {
+          dispatch(postSpotImage({spotId: id, url: img3Url, preview: false}))
+          return id;
+        })
+        .then((id) => {
+          dispatch(postSpotImage({spotId: id, url: img4Url, preview: false}))
+          return id;
+        })
+        .then((id) => {
+          return <Navigate to={`/spots/${id}`} replace={true} />;
+        })
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {
