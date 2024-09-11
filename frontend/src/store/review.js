@@ -12,8 +12,8 @@ const addReview = (review) => {
 };
 
 // thunk action creator
-export const createReview = (newReview) => async (dispatch) => {
-  const { userId, spotId, review, stars } = newReview;
+export const createReview = (spotId, newReview) => async (dispatch) => {
+  const { review, stars } = newReview;
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'POST',
     body: JSON.stringify({ review, stars })
@@ -21,8 +21,8 @@ export const createReview = (newReview) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    console.log(data)
     dispatch(addReview(data));
-    // console.log(data)
     return data;
   }
 }

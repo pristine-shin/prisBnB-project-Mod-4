@@ -6,6 +6,7 @@ const { User, SpotImage, ReviewImage, Spot, Review, Booking } = require('../../d
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { DataTypes } = require('sequelize');
+// const { default: spotReducer } = require('../../../frontend/src/store/spot');
 const router = express.Router();
 // router.use(express.json());
 
@@ -328,10 +329,10 @@ const validateReview = [
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
 
     const { review, stars } = req.body;
-    // console.log('backend test', review, stars)
     const { user } = req;
 
     const spotFromId = await Spot.findByPk(req.params.spotId);
+
 
     const spotReviews = await Review.findAll({
         where: {
@@ -345,6 +346,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
             "message": "Spot couldn't be found"
         })
     }
+
 
     for (let review of spotReviews) {
         if (review.userId === user.id) {
@@ -364,7 +366,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         updatedAt: new Date()
     })
 
-    console.log(newReview);
     res.status(201);
     return res.json(newReview);
 })

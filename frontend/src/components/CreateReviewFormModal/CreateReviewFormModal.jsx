@@ -8,7 +8,7 @@ import { createReview } from "../../store/review";
 const CreateReviewFormModal = () => {
   const dispatch = useDispatch();
   const currSpot = useSelector((state) => state.spot)
-  const currUser = useSelector((state) => state.session.user);
+  // const currUser = useSelector((state) => state.session.user);
   const [review, setReview] = useState("");
   const [numStars, setNumStars] = useState(null);
   const [hover, setHover] = useState(null);
@@ -21,15 +21,12 @@ const CreateReviewFormModal = () => {
     e.preventDefault();
     setErrors({});
 
-    return dispatch(createReview(
-      {
-        userId: currUser.id,
-        spotId: currSpot.id,
-        review,
-        stars: numStars,
-      }
-    ))
-    .then((review) => console.log(review))
+    const newReview = {
+      review,
+      stars: numStars
+    }
+
+    return dispatch(createReview(currSpot.id, newReview))
     .then(closeModal)
     .catch(async (res) => {
       const data = await res.json();
