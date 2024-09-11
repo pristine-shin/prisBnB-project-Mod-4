@@ -26,7 +26,7 @@ const LandingPage = () => {
             <img src={previewImage} alt="spot-image" className="spot-image"/>
             <div className="spot-info">
               <div>{city}, {state}</div>
-              <div><MdStarRate />{avgRating}</div>
+              <div><MdStarRate />{avgRating ? avgRating.toFixed(2) : avgRating}</div>
             </div>
             <div className="spot-price">${price} night</div>
           </NavLink>
