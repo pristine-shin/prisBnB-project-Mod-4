@@ -21,12 +21,15 @@ const CreateReviewFormModal = () => {
     e.preventDefault();
     setErrors({});
 
-    return dispatch(createReview({
+    return dispatch(createReview(
+      {
         userId: currUser.id,
         spotId: currSpot.id,
         review,
         stars: numStars,
-      }))
+      }
+    ))
+    .then((review) => console.log(review))
     .then(closeModal)
     .catch(async (res) => {
       const data = await res.json();
@@ -57,7 +60,7 @@ const CreateReviewFormModal = () => {
                             type="radio"
                             name="rating"
                             value={currStars}
-                            onClick={() => setNumStars(numStars)}
+                            onClick={() => setNumStars(currStars)}
                             required
                         />
                         <FaStar

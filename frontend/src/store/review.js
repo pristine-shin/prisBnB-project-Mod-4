@@ -22,8 +22,8 @@ export const createReview = (newReview) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(addReview(data));
-    console.log(data)
-    return response;
+    // console.log(data)
+    return data;
   }
 }
 
