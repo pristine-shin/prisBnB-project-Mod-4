@@ -69,7 +69,7 @@ const SpotDetailsPage = () => {
                             <h3><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</h3>
                             <div className="reviews-inner-container">
                                 {
-                                    currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id))? (
+                                    currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id)) ? (
                                         <OpenModalButton
                                             buttonText="Post Your Review"
                                             modalComponent={<CreateReviewFormModal />}
@@ -78,13 +78,23 @@ const SpotDetailsPage = () => {
                                         <div></div>
                                     )
                                 }
-                                {spotDetails.Reviews.map(review => (
-                                    <div key={review.id} className="single-review">
-                                        <div className="reviewer-name">{review.User.firstName}</div>
-                                        <div className="review-date">Month {review.createdAt.slice(0, 4)}</div>
-                                        <div className="review-text">{review.review}</div>
-                                    </div>
-                                ))}
+                                {
+                                    !spotDetails.Reviews.length ? (
+                                        <div style={{
+                                            marginTop: '15px'
+                                        }}>Be the first to post a review!</div>
+                                    ) : (
+                                        <div className="reviews-list">
+                                            {spotDetails.Reviews.map(review => (
+                                                <div key={review.id} className="single-review">
+                                                    <div className="reviewer-name">{review.User.firstName}</div>
+                                                    <div className="review-date">Month {review.createdAt.slice(0, 4)}</div>
+                                                    <div className="review-text">{review.review}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )
+                                }
                             </div>
 
                         </div>

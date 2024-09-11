@@ -75,7 +75,7 @@ const CreateReviewFormModal = () => {
             })}
         </div>
         {errors.stars && <p>{errors.stars}</p>}
-        <button type="submit" className="review-button">Submit Your Review</button>
+        <button type="submit" className="submit-review-button">Submit Your Review</button>
       </form>
     </div>
   );
