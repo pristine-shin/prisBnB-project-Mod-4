@@ -1,4 +1,14 @@
 /* TODO: Add sitewide styles */
 .review-button{
-    background-color: pink;
+    background-color: gray;
+    color: white;
+    box-shadow: 2px 2px black;
+}
+
+.delete-review-modal-button{
+    background-color: gray;
+    color: white;
+    box-shadow: 2px 2px black;
+    width: 60px;
+    margin-top: 15px;
 }
