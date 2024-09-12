@@ -26,8 +26,10 @@ const ManageSpotsPage = () => {
   }
   return (
     <div className="manage-spots-page-container">
-      <h1>Manage Your Spots</h1>
-      <button onClick={handleClick}>Create a New Spot</button>
+      <div className="manage-spots-header">
+        <h1>Manage Your Spots</h1>
+        <button onClick={handleClick} className="review-button">Create a New Spot</button>
+      </div>
       <div className="all-spots-container">
         {currUserSpots.map(({ id, previewImage, city, state, avgRating, price }) => (
           <div key={id} className="spot-card">
@@ -38,6 +40,10 @@ const ManageSpotsPage = () => {
                 <div><MdStarRate />{avgRating ? avgRating.toFixed(2) : avgRating}</div>
               </div>
               <div className="spot-price">${price} night</div>
+              <div className="update-delete-buttons-container">
+                <button className="review-button">Update</button>
+                <button className="review-button">Delete</button>
+              </div>
             </NavLink>
           </div>
         ))}
