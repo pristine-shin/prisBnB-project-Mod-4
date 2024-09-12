@@ -14,11 +14,13 @@ const SpotDetailsPage = () => {
     const { spotId } = useParams();
     const spotDetails = useSelector(state => state.spot);
     const currUser = useSelector((state) => state.session.user);
+    const review = useSelector((state) => state.review)
 
+    // console.log(review);
 
     useEffect(() => {
         dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId))).then(() => { setisLoading(true) })
-    }, [dispatch, spotId]);
+    }, [dispatch, spotId, review]);
 
     // const previewImg = spotDetails.SpotImages.find(image => image.preview === true);
     // console.log(spotDetails);
@@ -72,6 +74,7 @@ const SpotDetailsPage = () => {
                                     currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id)) ? (
                                         <OpenModalButton
                                             buttonText="Post Your Review"
+                                            buttonClassName="review-button"
                                             modalComponent={<CreateReviewFormModal />}
                                         />
                                     ) : (
