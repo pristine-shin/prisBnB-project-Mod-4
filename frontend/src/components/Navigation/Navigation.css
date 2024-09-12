@@ -23,6 +23,11 @@
     border-bottom: 2px solid black;
 }
 
+#manage-spots-container{
+    text-decoration: none;
+    color: black;
+}
+
 #log-out-container{
     align-self: center;
 }
