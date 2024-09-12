@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 // constant to avoid debugging typos
 const LOAD_SPOTS = 'spot/load_spots';
+const LOAD_CURRENT_USER_SPOTS = 'spot/load_current_user_spots'
 const ADD_SPOT = 'spot/add_spot';
 const ADD_IMAGE = 'spot/add_image';
 const LOAD_DETAILS = 'spot/load_details';
@@ -14,6 +15,13 @@ const loadSpots = (spots) => {
     spots
   };
 };
+
+const loadCurrentUserSpots = (spots) => {
+  return {
+    type: LOAD_CURRENT_USER_SPOTS,
+    spots
+  }
+}
 
 const addSpot = (spot) => {
   return {
@@ -50,6 +58,16 @@ export const getSpots = () => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(loadSpots(data.Spots));
+    return response;
+  }
+}
+
+export const getCurrentUserSpots = () => async (dispatch) => {
+  const response = await csrfFetch('/api/spots/current');
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadCurrentUserSpots(data.Spots));
     return response;
   }
 }
@@ -113,6 +131,10 @@ const initialState = {};
 const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SPOTS: {
+      const newState = {...state, Spots: action.spots};//could turn this into an object with each spot id as the key so lookup time is faster
+      return newState;
+    }
+    case LOAD_CURRENT_USER_SPOTS: {
       const newState = {...state, Spots: action.spots};//could turn this into an object with each spot id as the key so lookup time is faster
       return newState;
     }
