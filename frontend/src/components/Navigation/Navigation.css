@@ -14,9 +14,13 @@
     display: none
 }
 
-
 .profile-menu-item{
-    margin: 5px 5px 0px 5px;
+    padding: 5px;
+    font-size: small;
+}
+
+#manage-spots-container, #user-email{
+    border-bottom: 2px solid black;
 }
 
 #log-out-container{

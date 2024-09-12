@@ -43,12 +43,10 @@ function ProfileButton({ user }) {
       </button>
       <div className={ulClassName} ref={ulRef}>
         <li className='profile-menu-item'>Hello, {user.username}</li>
-        <li className='profile-menu-item'>{user.email}</li>
-        <hr />
-        <li className='profile-menu-item'>Manage Spots Stand In</li>
-        <hr />
-        <li id='log-out-container'>
-          <button idonClick={logout} id='log-out-button'>Log Out</button>
+        <li className='profile-menu-item' id='user-email'>{user.email}</li>
+        <li className='profile-menu-item' id='manage-spots-container'>Manage Spots Stand In</li>
+        <li className='profile-menu-item' id='log-out-container'>
+          <button onClick={logout} id='log-out-button'>Log Out</button>
         </li>
       </div>
     </>
