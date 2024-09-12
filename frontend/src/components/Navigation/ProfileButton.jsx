@@ -41,14 +41,16 @@ function ProfileButton({ user }) {
         <IoIosMenu />
         <FaUserCircle id='profile-logo'/>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
-        <li>
-          <button onClick={logout}>Log Out</button>
+      <div className={ulClassName} ref={ulRef}>
+        <li className='profile-menu-item'>Hello, {user.username}</li>
+        <li className='profile-menu-item'>{user.email}</li>
+        <hr />
+        <li className='profile-menu-item'>Manage Spots Stand In</li>
+        <hr />
+        <li id='log-out-container'>
+          <button idonClick={logout} id='log-out-button'>Log Out</button>
         </li>
-      </ul>
+      </div>
     </>
   );
 }
