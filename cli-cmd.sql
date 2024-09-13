@@ -32,7 +32,6 @@ npx sequelize seed:generate --name demo-review-image
 
 
 
-
 npx dotenv sequelize db:seed:all
 
 Phase 4:
