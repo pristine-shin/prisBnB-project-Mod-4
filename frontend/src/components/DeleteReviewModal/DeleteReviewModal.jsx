@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from '../../context/Modal';
 import './DeleteReview.css'
@@ -6,7 +5,7 @@ import { deleteReview } from "../../store/review";
 
 const DeleteReviewModal = () => {
   const dispatch = useDispatch();
-  const currSpot = useSelector((state) => state.spot)
+  // const currSpot = useSelector((state) => state.spot)
   const review = useSelector((state) => state.review)
   // const currUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
