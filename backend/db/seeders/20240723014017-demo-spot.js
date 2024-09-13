@@ -32,7 +32,7 @@ module.exports = {
         lat: 34.0522,
         lng: -118.2437,
         name: 'Cozy Cottage',
-        description: 'Nestled in the rolling hills of Hobbiton, this charming and cozy hobbit hole offers a peaceful retreat for those seeking a tranquil countryside escape. The circular doors and windows let in plenty of natural light, while the rustic wooden furnishings create a warm and inviting atmosphere. Wake up to the sound of birds chirping and enjoy breakfast on the lush garden patio. Perfect for nature lovers and Tolkien fans alike, you can explore the winding paths and scenic landscapes just outside your door. A truly magical stay awaits in The Shire!',
+        description: 'Nestled in the rolling hills of Hobbiton, this charming and cozy hobbit hole offers a peaceful retreat for those seeking a tranquil countryside escape. The circular doors and windows let in plenty of natural light, while the rustic wooden furnishings create a warm and inviting atmosphere.',
         price: 150.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -46,7 +46,7 @@ module.exports = {
         lat: 37.7749,
         lng: -122.4194,
         name: 'Urban Homestead',
-        description: "A palace of trife arts, where dreams come true. This sleek, open-concept artist's loft is the perfect blend of creativity and luxury. Located in the heart of the city, this loft boasts high ceilings, large windows, and an abundance of natural light. The minimalist decor highlights bold art pieces scattered throughout, with plenty of space for you to create, relax, or entertain. Whether you're here to work on your next masterpiece or just soak in the urban vibe, this loft will inspire you. Step outside to explore nearby galleries, cafes, and boutique shops, all just steps away from your front door.",
+        description: "A palace of trife arts, where dreams come true. This sleek, open-concept artist's loft is the perfect blend of creativity and luxury. Located in the heart of the city, this loft boasts high ceilings, large windows, and an abundance of natural light. ",
         price: 100.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -60,7 +60,7 @@ module.exports = {
         lat: 40.7128,
         lng: -74.0060,
         name: 'Modern Apartment',
-        description: 'Experience the charm of New York City from this classic brownstone apartment located in the historic Upper West Side. This spacious and elegantly furnished apartment features exposed brick walls, hardwood floors, and tall windows that fill the space with natural light. Enjoy coffee in the sun-drenched living room or unwind in the tranquil courtyard garden. Just a short walk from Central Park and iconic museums, this apartment offers the perfect blend of luxury, comfort, and convenience for your NYC stay.',
+        description: 'Experience the charm of New York City from this classic brownstone apartment located in the historic Upper West Side. This spacious and elegantly furnished apartment features exposed brick walls, hardwood floors, and tall windows that fill the space with natural light.',
         price: 200.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -74,7 +74,7 @@ module.exports = {
         lat: 46.8596,
         lng: -94.1470,
         name: 'Beachfront Paradise',
-        description: 'Wake up to the sound of waves and enjoy stunning ocean views from this modern Miami Beach house. With a spacious open-plan design, this property features floor-to-ceiling windows, a private pool, and direct access to the beach. Perfect for a family getaway or a group of friends, the house is designed with sleek, contemporary decor, and offers plenty of outdoor space for lounging in the sun or dining al fresco. Located just minutes from the vibrant nightlife and cultural hotspots of Miami, this beach house offers both relaxation and excitement.',
+        description: 'Wake up to the sound of waves and enjoy stunning ocean views from this modern Miami Beach house. With a spacious open-plan design, this property features floor-to-ceiling windows, a private pool, and direct access to the beach. ',
         price: 500.00,
         createdAt: new Date(),
         updatedAt: new Date()
