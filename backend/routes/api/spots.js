@@ -582,6 +582,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const { user } = req;
 
+    console.log('backend test ---- ', user, address)
     const updatedSpot = await Spot.findOne({
         where: {
             id: req.params.spotId

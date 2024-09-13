@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { updateSpot } from '../../store/spot';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getSpotById, updateSpot } from '../../store/spot';
 import './EditSpotForm.css'
 
 function EditSpotFormPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { spotId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
-  const currSpot = useSelector((state) => state.spot);
+
+  useEffect(() => {
+    dispatch(getSpotById(spotId));
+  }, [dispatch, spotId])
+
+  const currSpot = useSelector((state) => state.spot)
   const [address, setAddress] = useState(currSpot.address);
   const [city, setCity] = useState(currSpot.city);
   const [state, setState] = useState(currSpot.state);
@@ -44,6 +50,8 @@ function EditSpotFormPage() {
         description,
         price
       }
+
+    //   console.log(editedSpot)
 
       dispatch(
         updateSpot(currSpot.id, editedSpot)
