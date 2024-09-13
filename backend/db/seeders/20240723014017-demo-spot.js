@@ -32,7 +32,7 @@ module.exports = {
         lat: 34.0522,
         lng: -118.2437,
         name: 'Cozy Cottage',
-        description: 'Nestled in the rolling hills of Hobbiton, this charming and cozy hobbit hole offers a peaceful retreat for those seeking a tranquil countryside escape. The circular doors and windows let in plenty of natural light, while the rustic wooden furnishings create a warm and inviting atmosphere.',
+        description: 'Nestled in the rolling hills of Hobbiton, this charming and cozy hobbit hole offers a peaceful retreat for those seeking a tranquil countryside escape.',
         price: 150.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -46,7 +46,7 @@ module.exports = {
         lat: 37.7749,
         lng: -122.4194,
         name: 'Urban Homestead',
-        description: "A palace of trife arts, where dreams come true. This sleek, open-concept artist's loft is the perfect blend of creativity and luxury. Located in the heart of the city, this loft boasts high ceilings, large windows, and an abundance of natural light. ",
+        description: "A palace of trife arts, where dreams come true. This sleek, open-concept artist's loft is the perfect blend of creativity and luxury. ",
         price: 100.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -60,7 +60,7 @@ module.exports = {
         lat: 40.7128,
         lng: -74.0060,
         name: 'Modern Apartment',
-        description: 'Experience the charm of New York City from this classic brownstone apartment located in the historic Upper West Side. This spacious and elegantly furnished apartment features exposed brick walls, hardwood floors, and tall windows that fill the space with natural light.',
+        description: 'Experience the charm of New York City from this classic brownstone apartment located in the historic Upper West Side.',
         price: 200.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -74,7 +74,7 @@ module.exports = {
         lat: 46.8596,
         lng: -94.1470,
         name: 'Beachfront Paradise',
-        description: 'Wake up to the sound of waves and enjoy stunning ocean views from this modern Miami Beach house. With a spacious open-plan design, this property features floor-to-ceiling windows, a private pool, and direct access to the beach. ',
+        description: 'Wake up to the sound of waves and enjoy stunning ocean views from this modern Miami Beach house.',
         price: 500.00,
         createdAt: new Date(),
         updatedAt: new Date()

@@ -26,7 +26,7 @@ module.exports = {
       {
         userId: 1,
         spotId: 1,
-        review: "We stays here, precious, but we don’t likes it! Too much sunlight, yes, yes, hurts our eyes! Hobbitses thinks it’s cute, but it’s too green, too fresh, too full of nasty flowers. No dark corners for us to hide, no caves, no... fish! ",
+        review: "We stays here, precious, but we don’t likes it! Too much sunlight, yes, yes, hurts our eyes!",
         stars: 2,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -34,7 +34,7 @@ module.exports = {
       {
         userId: 2,
         spotId: 1,
-        review: "This humble abode is perfect for wizards needing a break from meddling in the affairs of others. I’ve been here countless times, and I must say, it remains as charming as ever. The fireplace is excellent for pipe-weed contemplation, and there’s no shortage of ale in Hobbiton’s taverns.",
+        review: "This humble abode is perfect for wizards needing a break from meddling in the affairs of others.",
         stars: 5,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -42,7 +42,7 @@ module.exports = {
       {
         userId: 3,
         spotId: 1,
-        review: "As a native of Hobbiton, I must say this hobbit hole has a lot going for it—cozy atmosphere, lovely round doors, and the garden is well-kept (though not quite as nice as my dear Sam’s, but I won’t hold that against them).",
+        review: "As a native of Hobbiton, I must say this hobbit hole has a lot going for it—cozy atmosphere.",
         stars: 4,
         createdAt: new Date(),
         updatedAt: new Date()
