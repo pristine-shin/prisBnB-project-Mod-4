@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getCurrentUserSpots } from "../../store/spot";
+import { deleteSpot, getCurrentUserSpots } from "../../store/spot";
 import { useDispatch, useSelector } from "react-redux";
 import { MdStarRate } from "react-icons/md";
 import './ManageSpots.css'
@@ -9,20 +9,23 @@ const ManageSpotsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currUserSpots = useSelector(state => state.spot.Spots)
+  // console.log(currUserSpots.find(spot => spot.id))
 
   useEffect(() => {
     dispatch(getCurrentUserSpots());
-  }, [dispatch]);
+  }, [dispatch, currUserSpots]);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     return navigate('/spots/new');
   }
 
-  const handleClickDelete = (e) => {
-    e.preventDefault();
-    //delete thunk here
-  }
+  // const handleClickDelete = async (e) => {
+  //   e.preventDefault();
+  //   console.log('test click')
+
+  //   // return dispatch(deleteSpot())
+  // }
 
   if (!currUserSpots) {
     return (
@@ -49,7 +52,9 @@ const ManageSpotsPage = () => {
                 <NavLink to={`/spots/${id}/edit`}>
                   <button className="review-button">Update</button>
                 </NavLink>
-                <button onClick={handleClickDelete}className="review-button">Delete</button>
+                <NavLink to={`/spots/current`}>
+                <button onClick={() => dispatch(deleteSpot(id))}className="review-button">Delete</button>
+                </NavLink>
               </div>
             </NavLink>
           </div>

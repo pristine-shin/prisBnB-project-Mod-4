@@ -5,6 +5,7 @@ const LOAD_SPOTS = 'spot/load_spots';
 const LOAD_CURRENT_USER_SPOTS = 'spot/load_current_user_spots'
 const ADD_SPOT = 'spot/add_spot';
 const EDIT_SPOT = 'spot/edit_spot';
+const REMOVE_SPOT = 'spot/remove_spot';
 const ADD_IMAGE = 'spot/add_image';
 const LOAD_DETAILS = 'spot/load_details';
 const LOAD_REVIEWS = 'spot/load_reviews'
@@ -35,6 +36,12 @@ const editSpot = (spot) => {
   return {
     type: EDIT_SPOT,
     spot
+  }
+};
+
+const removeSpot = () => {
+  return {
+    type: REMOVE_SPOT
   }
 }
 
@@ -114,6 +121,18 @@ export const updateSpot = (spotId, spot) => async (dispatch) => {
   }
 }
 
+export const deleteSpot = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    const result = await res.json();
+    dispatch(removeSpot())
+    return result;
+  }
+}
+
 export const postSpotImage = (image) => async(dispatch) => {
   const { spotId, url, preview } = image;
   const res = await csrfFetch(`/api/spots/${spotId}/images`, {
@@ -169,6 +188,11 @@ const spotReducer = (state = initialState, action) => {
     case EDIT_SPOT: {
       const newState = {...state, ...action.spot};
       return newState;
+    }
+    case REMOVE_SPOT: {
+      const newState = {...state};
+      delete newState.spot;
+      return newState //i dont think this is going to work
     }
     //might not need this one?
     // case ADD_IMAGE: {
