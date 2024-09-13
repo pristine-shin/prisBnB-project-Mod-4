@@ -27,6 +27,7 @@ const ManageSpotsPage = () => {
   //   // return dispatch(deleteSpot())
   // }
 
+  
   if (!currUserSpots) {
     return (
       <h1>Loading...</h1>
