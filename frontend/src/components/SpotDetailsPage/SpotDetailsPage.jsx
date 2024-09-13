@@ -94,7 +94,7 @@ const SpotDetailsPage = () => {
                                                     <div className="reviewer-name">{review.User.firstName}</div>
                                                     <div className="review-date">Month {review.createdAt.slice(0, 4)}</div>
                                                     <div className="review-text">{review.review}</div>
-                                                    { currUser.id === review.userId ? (
+                                                    { currUser && currUser.id === review.userId ? (
                                                         <OpenModalButton
                                                             buttonText="Delete"
                                                             buttonClassName="delete-review-modal-button"
