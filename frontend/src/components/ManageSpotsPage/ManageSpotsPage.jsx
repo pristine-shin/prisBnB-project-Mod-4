@@ -9,11 +9,10 @@ const ManageSpotsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currUserSpots = useSelector(state => state.spot.Spots)
-  // console.log(currUserSpots.find(spot => spot.id))
 
   useEffect(() => {
     dispatch(getCurrentUserSpots());
-  }, [dispatch, currUserSpots]);
+  }, [dispatch, currUserSpots]);//this isn't great, it re renders all the time
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -27,7 +26,7 @@ const ManageSpotsPage = () => {
   //   // return dispatch(deleteSpot())
   // }
 
-  
+
   if (!currUserSpots) {
     return (
       <h1>Loading...</h1>

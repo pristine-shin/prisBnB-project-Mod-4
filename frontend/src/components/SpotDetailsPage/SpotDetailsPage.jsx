@@ -98,7 +98,8 @@ const SpotDetailsPage = () => {
                                                         <OpenModalButton
                                                             buttonText="Delete"
                                                             buttonClassName="delete-review-modal-button"
-                                                            modalComponent={<DeleteReviewModal />}
+                                                            reviewId={review.id}
+                                                            modalComponent={<DeleteReviewModal reviewId={review.id}/>}
                                                         />
                                                     ) : (
                                                         <div></div>
