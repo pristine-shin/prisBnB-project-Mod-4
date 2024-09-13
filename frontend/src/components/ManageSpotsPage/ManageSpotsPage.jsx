@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { deleteSpot, getCurrentUserSpots } from "../../store/spot";
 import { useDispatch, useSelector } from "react-redux";
