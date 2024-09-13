@@ -4,9 +4,11 @@ import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal';
 // import { Navigate } from "react-router-dom";
 import './LoginForm.css'
+import { useNavigate } from "react-router-dom";
 
 const LoginFormModal = () => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   // const currUser = useSelector((state) => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -34,24 +36,22 @@ const LoginFormModal = () => {
     <div className="login-container">
       <h1 id="heading">Log In</h1>
       <form onSubmit={handleSubmit} className="login-form">
-        <label className="form-label">Username or Email
-            <input
-            className="form-input"
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-            />
-        </label>
-        <label className="form-label">Password
-            <input
-            className="form-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            />
-        </label>
+        <input
+          placeholder="Username or Email"
+          className="form-input"
+          type="text"
+          value={credential}
+          onChange={(e) => setCredential(e.target.value)}
+          required
+        />
+        <input
+          placeholder="Password"
+          className="form-input"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         {errors.credential && <p>{errors.credential}</p>}
         <button type="submit" className="login-button">Log In</button>
       </form>

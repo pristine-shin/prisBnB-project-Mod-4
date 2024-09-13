@@ -1,5 +1,35 @@
+.profile-dropdown{
+    background-color: white;
+    list-style: none;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    position: absolute;
+    top:8%;
+    right: 2%;
+}
+
 .hidden {
     display: none
+}
+
+.profile-menu-item{
+    padding: 5px;
+    font-size: small;
+}
+
+#manage-spots-container, #user-email{
+    border-bottom: 2px solid black;
+}
+
+#manage-spots-container{
+    text-decoration: none;
+    color: black;
+}
+
+#log-out-container{
+    align-self: center;
 }
 
 #menu-button {
@@ -9,6 +39,15 @@
     padding: 5px 5px 5px 5px;
     font-size: large;
     border: 1.5px solid rgb(179, 178, 178);
+}
+
+#log-out-button{
+    border-radius: 50px;
+    display: flex;
+    padding: 10px 10px 10px 10px;
+    border: 1.5px solid black;
+    color: white;
+    background-color: rgb(94, 94, 94);
 }
 
 #profile-logo{
@@ -24,6 +63,18 @@
     padding: 10px 20px 20px 10px;
     list-style: none;
 }
+
+.navbar-right {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+#create-spot-link{
+    text-decoration: none;
+    color: rgb(15, 105, 84);
+    padding-right: 10px;
+}
 .home-container {
     display: flex;
     justify-content: space-around;
@@ -36,6 +87,7 @@
 
 #home-button {
     text-decoration: none;
+    font-size: x-large;
     font-weight: 600;
     color: rgb(238, 66, 86);
     padding-left: 5px;

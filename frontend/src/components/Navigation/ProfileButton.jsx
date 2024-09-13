@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { NavLink } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoIosMenu } from "react-icons/io";
@@ -41,14 +42,14 @@ function ProfileButton({ user }) {
         <IoIosMenu />
         <FaUserCircle id='profile-logo'/>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
-        <li>
-          <button onClick={logout}>Log Out</button>
+      <div className={ulClassName} ref={ulRef}>
+        <li className='profile-menu-item'>Hello, {user.username}</li>
+        <li className='profile-menu-item' id='user-email'>{user.email}</li>
+        <NavLink to={`/spots/current`} className='profile-menu-item' id='manage-spots-container'>Manage Spots</NavLink>
+        <li className='profile-menu-item' id='log-out-container'>
+          <button onClick={logout} id='log-out-button'>Log Out</button>
         </li>
-      </ul>
+      </div>
     </>
   );
 }

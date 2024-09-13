@@ -1,0 +1,25 @@
+hr{
+    height: 2px;
+    background-color: black;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.create-spot-form p {
+    color: red;
+}
+
+.image-url-input input{
+    margin-bottom: 20px;
+}
+
+.create-spot-button-section{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 20px 0px;
+}
+#create-spot-button{
+    background-color: rgb(255, 63, 86);
+    color: white;
+    box-shadow: 3px 3px black;
+}
