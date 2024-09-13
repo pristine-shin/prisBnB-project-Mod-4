@@ -17,7 +17,7 @@ const SpotDetailsPage = () => {
     const currUser = useSelector((state) => state.session.user);
     const review = useSelector((state) => state.review)
 
-    console.log(review);
+    // console.log(review);
 
     useEffect(() => {
         dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId))).then(() => { setisLoading(true) })
@@ -98,7 +98,8 @@ const SpotDetailsPage = () => {
                                                         <OpenModalButton
                                                             buttonText="Delete"
                                                             buttonClassName="delete-review-modal-button"
-                                                            modalComponent={<DeleteReviewModal />}
+                                                            reviewId={review.id}
+                                                            modalComponent={<DeleteReviewModal reviewId={review.id}/>}
                                                         />
                                                     ) : (
                                                         <div></div>
