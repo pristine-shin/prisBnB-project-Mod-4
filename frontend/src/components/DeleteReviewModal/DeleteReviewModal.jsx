@@ -7,6 +7,7 @@ const DeleteReviewModal = () => {
   const dispatch = useDispatch();
   // const currSpot = useSelector((state) => state.spot)
   const review = useSelector((state) => state.review)
+  console.log(review)
   // const currUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
 
