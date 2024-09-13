@@ -17,7 +17,7 @@ const SpotDetailsPage = () => {
     const currUser = useSelector((state) => state.session.user);
     const review = useSelector((state) => state.review)
 
-    // console.log(review);
+    console.log(review);
 
     useEffect(() => {
         dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId))).then(() => { setisLoading(true) })
