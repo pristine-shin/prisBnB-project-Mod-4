@@ -5,3 +5,9 @@
 .manage-spots-header{
   margin-left: 5px;
 }
+
+.update-delete-buttons-container button{
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

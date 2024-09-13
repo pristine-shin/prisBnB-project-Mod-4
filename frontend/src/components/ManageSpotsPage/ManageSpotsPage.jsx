@@ -19,6 +19,11 @@ const ManageSpotsPage = () => {
     return navigate('/spots/new');
   }
 
+  const handleClickDelete = (e) => {
+    e.preventDefault();
+    //delete thunk here
+  }
+
   if (!currUserSpots) {
     return (
       <h1>Loading...</h1>
@@ -41,8 +46,10 @@ const ManageSpotsPage = () => {
               </div>
               <div className="spot-price">${price} night</div>
               <div className="update-delete-buttons-container">
-                <button className="review-button">Update</button>
-                <button className="review-button">Delete</button>
+                <NavLink to={`/spots/${id}/edit`}>
+                  <button className="review-button">Update</button>
+                </NavLink>
+                <button onClick={handleClickDelete}className="review-button">Delete</button>
               </div>
             </NavLink>
           </div>
