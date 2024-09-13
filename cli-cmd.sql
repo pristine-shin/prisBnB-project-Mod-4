@@ -33,7 +33,6 @@ npx sequelize seed:generate --name demo-review-image
 
 
 
-
 npx dotenv sequelize db:seed:all
 
 Phase 4:
@@ -60,5 +59,3 @@ git merge `<branch-name>`
 Finally, push your changes to the development branch to the remote repository:
 
 git push origin dev
-
-
