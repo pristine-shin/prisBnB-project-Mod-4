@@ -82,7 +82,7 @@ const SpotDetailsPage = () => {
                                         <div></div>
                                     )
                                 }
-                                {
+                                
                                     !spotDetails.Reviews.length ? (
                                         <div style={{
                                             marginTop: '15px'
