@@ -39,9 +39,10 @@ const editSpot = (spot) => {
   }
 };
 
-const removeSpot = () => {
+const removeSpot = (spotId) => {
   return {
-    type: REMOVE_SPOT
+    type: REMOVE_SPOT,
+    spotId
   }
 }
 
@@ -98,8 +99,7 @@ export const createSpot = (spot) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(addSpot(data.spot));
-
+    dispatch(addSpot(data));
     return data;
   }
 }
@@ -127,9 +127,8 @@ export const deleteSpot = (spotId) => async (dispatch) => {
   })
 
   if (res.ok) {
-    const result = await res.json();
-    dispatch(removeSpot())
-    return result;
+    dispatch(removeSpot(spotId));
+    dispatch(getCurrentUserSpots())
   }
 }
 
@@ -151,9 +150,9 @@ export const getSpotById = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`);
 
   if (response.ok) {
-    const data = await response.json();
-    dispatch(loadDetails(data));
-    return data.SpotImages;
+    const spot = await response.json();
+    dispatch(loadDetails(spot));
+    return spot;
   }
 }
 

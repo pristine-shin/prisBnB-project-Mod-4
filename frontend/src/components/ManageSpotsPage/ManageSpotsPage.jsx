@@ -1,18 +1,25 @@
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { deleteSpot, getCurrentUserSpots } from "../../store/spot";
+import { getCurrentUserSpots } from "../../store/spot";
 import { useDispatch, useSelector } from "react-redux";
 import { MdStarRate } from "react-icons/md";
 import './ManageSpots.css'
+import DeleteSpotButton from "./DeleteSpotButton";
+import UpdateSpotButton from "./UpdateSpotButton"
 
 const ManageSpotsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currUserSpots = useSelector(state => state.spot.Spots)
+  const currUserSpots = useSelector(state => state.spot.Spots);
+  // const [spotId, setSpotId] = useState('')
+  // const currSpotId = useSelector((state) => state.spot);
+
+  console.log('user spots', currUserSpots);
+  // console.log('current spot id', spotId)
 
   useEffect(() => {
     dispatch(getCurrentUserSpots());
-  }, [dispatch, currUserSpots]);//this isn't great, it re renders all the time
+  }, [dispatch]);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -21,11 +28,9 @@ const ManageSpotsPage = () => {
 
   // const handleClickDelete = async (e) => {
   //   e.preventDefault();
-  //   console.log('test click')
 
-  //   // return dispatch(deleteSpot())
+  //   return dispatch(deleteSpot(spotId))
   // }
-
 
   if (!currUserSpots) {
     return (
@@ -49,12 +54,14 @@ const ManageSpotsPage = () => {
               </div>
               <div className="spot-price">${price} night</div>
               <div className="update-delete-buttons-container">
-                <NavLink to={`/spots/${id}/edit`}>
+                {/* <NavLink to={`/spots/${id}/edit`}>
                   <button className="review-button">Update</button>
-                </NavLink>
-                <NavLink to={`/spots/current`}>
-                <button onClick={() => dispatch(deleteSpot(id))}className="review-button">Delete</button>
-                </NavLink>
+                </NavLink> */}
+                <UpdateSpotButton spotId={id}/>
+                {/* <NavLink to={`/spots/current`}> */}
+                {/* <button onClick={() => setSpotId(id)}className="review-button">Delete</button> */}
+                {/* </NavLink> */}
+                <DeleteSpotButton spotId={id}/>
               </div>
             </NavLink>
           </div>
