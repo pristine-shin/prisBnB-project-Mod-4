@@ -23,6 +23,7 @@ const SpotDetailsPage = () => {
         dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId))).then(() => { setisLoading(true) })
     }, [dispatch, spotId, review]);
 
+
     // const previewImg = spotDetails.SpotImages.find(image => image.preview === true);
     // console.log(spotDetails);
     const handleClick = () => {

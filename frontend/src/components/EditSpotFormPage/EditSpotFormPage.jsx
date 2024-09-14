@@ -10,14 +10,14 @@ function EditSpotFormPage() {
   const { spotId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const currSpot = useSelector((state) => state.spot)
+  console.log(currSpot)
 
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(getSpotById(spotId)).then(() => setIsLoaded(true));
   }, [dispatch, spotId])
 
-  console.log(currSpot)
   const [address, setAddress] = useState(currSpot.address);
   const [city, setCity] = useState(currSpot.city);
   const [state, setState] = useState(currSpot.state);
