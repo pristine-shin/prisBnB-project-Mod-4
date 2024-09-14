@@ -34,6 +34,20 @@ function EditSpotFormPage() {
 //   const [img4Url, setImg4Url] = useState(currSpot.SpotImages[4].url);
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    if (currSpot) {
+        setName(currSpot.name || '');
+        setAddress(currSpot.address || '');
+        setCity(currSpot.city || '');
+        setState(currSpot.state || '');
+        setCountry(currSpot.country || '');
+        setLat(currSpot.lat || '');
+        setLng(currSpot.lng || '');
+        setDescription(currSpot.description || '');
+        setPrice(currSpot.price || '');
+    }
+  }, [currSpot]);
+
 
   // if (sessionUser) return <Navigate to="/spots/new" replace={true} />;
 
