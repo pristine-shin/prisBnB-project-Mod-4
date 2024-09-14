@@ -7,7 +7,7 @@ import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModa
 import { MdStarRate } from "react-icons/md";
 import { LuDot } from "react-icons/lu";
 import './SpotDetails.css'
-import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewMOdal";
+import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 
 const SpotDetailsPage = () => {
     const dispatch = useDispatch();
@@ -72,21 +72,24 @@ const SpotDetailsPage = () => {
                             <h3><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</h3>
                             <div className="reviews-inner-container">
                                 {
-                                    currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id)) ? (
-                                        <OpenModalButton
-                                            buttonText="Post Your Review"
-                                            buttonClassName="review-button"
-                                            modalComponent={<CreateReviewFormModal />}
-                                        />
+                                    currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id)) && !spotDetails.Reviews.length ? (
+                                        <div>
+                                            <OpenModalButton
+                                                buttonText="Post Your Review"
+                                                buttonClassName="review-button"
+                                                modalComponent={<CreateReviewFormModal />}
+                                            />
+                                            <div style={{
+                                            marginTop: '15px'
+                                        }}>Be the first to post a review!</div>
+                                        </div>
                                     ) : (
                                         <div></div>
                                     )
                                 }
-                                
+                                {
                                     !spotDetails.Reviews.length ? (
-                                        <div style={{
-                                            marginTop: '15px'
-                                        }}>Be the first to post a review!</div>
+                                        <div></div>
                                     ) : (
                                         <div className="reviews-list">
                                             {spotDetails.Reviews.map(review => (
