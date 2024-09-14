@@ -57,7 +57,7 @@ const ManageSpotsPage = () => {
                 {/* <NavLink to={`/spots/${id}/edit`}>
                   <button className="review-button">Update</button>
                 </NavLink> */}
-                <UpdateSpotButton spotId={id}/>
+                <UpdateSpotButton spot={{ id, previewImage, city, state, avgRating, price }}/>
                 {/* <NavLink to={`/spots/current`}> */}
                 {/* <button onClick={() => setSpotId(id)}className="review-button">Delete</button> */}
                 {/* </NavLink> */}

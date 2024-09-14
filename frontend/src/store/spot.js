@@ -114,10 +114,9 @@ export const updateSpot = (spotId, spot) => async (dispatch) => {
   });
 
   if (res.ok) {
-    const data = await res.json();
-    dispatch(editSpot(data.spot));
-
-    return data;
+    const editedSpot = await res.json();
+    dispatch(editSpot(editedSpot.spot));
+    return editedSpot;
   }
 }
 
