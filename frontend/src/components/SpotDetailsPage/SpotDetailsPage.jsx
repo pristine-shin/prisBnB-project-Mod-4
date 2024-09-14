@@ -63,13 +63,18 @@ const SpotDetailsPage = () => {
                                 <div className="price-details">
                                     <h3>${spotDetails.price} night</h3>
                                     {
-                                spotDetails.Reviews.length ? (
-                                    <div><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</div>
+                                        spotDetails.Reviews.length ? (
+                                            spotDetails.Reviews.length > 1 ? (
+                                                <div><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</div>
 
-                                ) : (
-                                    <div><MdStarRate />New</div>
-                                )
-                            }
+                                            ) : (
+                                                <div><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} review</div>
+                                            )
+
+                                        ) : (
+                                            <div><MdStarRate />New</div>
+                                        )
+                                    }
                                 </div>
                                 <button id="reserve-button" onClick={handleClick}>Reserve</button>
                             </div>

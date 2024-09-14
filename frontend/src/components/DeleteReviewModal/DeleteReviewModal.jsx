@@ -8,8 +8,8 @@ const DeleteReviewModal = ({reviewId}) => {
   const dispatch = useDispatch();
   const currSpotId = useSelector((state) => state.spot.id)
   // const review = useSelector((state) => state.review)
-  console.log('current spot', currSpotId)
-  console.log('current reviewId', reviewId)
+  // console.log('current spot', currSpotId)
+  // console.log('current reviewId', reviewId)
   // const currUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
 
