@@ -9,12 +9,15 @@ function EditSpotFormPage() {
   const navigate = useNavigate();
   const { spotId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
+  const currSpot = useSelector((state) => state.spot)
+  console.log(currSpot)
+
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getSpotById(spotId));
+    dispatch(getSpotById(spotId)).then(() => setIsLoaded(true));
   }, [dispatch, spotId])
 
-  const currSpot = useSelector((state) => state.spot)
   const [address, setAddress] = useState(currSpot.address);
   const [city, setCity] = useState(currSpot.city);
   const [state, setState] = useState(currSpot.state);
@@ -89,7 +92,9 @@ function EditSpotFormPage() {
   };
 
   return (
-    <div className='create-spot-container'
+    <>
+{ isLoaded &&
+     <div className='create-spot-container'
       style={{
         width: "33%",
         display: "flex",
@@ -255,7 +260,8 @@ function EditSpotFormPage() {
           <button type="submit" id='create-spot-button'>Update Spot</button>
         </div>
       </form>
-    </div>
+    </div>}
+    </>
   );
 }
 

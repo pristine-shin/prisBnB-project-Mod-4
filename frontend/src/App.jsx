@@ -37,21 +37,27 @@ const router = createBrowserRouter([
         element: <LandingPage />
       },
       {
+        path: '/spots/current',
+        element: <ManageSpotsPage />
+      },
+      {
         path: '/spots/new',
         element: <CreateSpotFormPage />
       },
       {
         path: '/spots/:spotId',
-        element: <SpotDetailsPage />
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <SpotDetailsPage />
+          },
+          {
+            path: '/spots/:spotId/edit',
+            element: <EditSpotFormPage />
+          }
+        ]
       },
-      {
-        path: '/spots/:spotId/edit',
-        element: <EditSpotFormPage />
-      },
-      {
-        path: '/spots/current',
-        element: <ManageSpotsPage />
-      }
     ]
   }
 ]);
