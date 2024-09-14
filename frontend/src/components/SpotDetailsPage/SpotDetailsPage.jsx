@@ -62,14 +62,28 @@ const SpotDetailsPage = () => {
                             <div className="price-container">
                                 <div className="price-details">
                                     <h3>${spotDetails.price} night</h3>
+                                    {
+                                spotDetails.Reviews.length ? (
                                     <div><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</div>
+
+                                ) : (
+                                    <div><MdStarRate />New</div>
+                                )
+                            }
                                 </div>
                                 <button id="reserve-button" onClick={handleClick}>Reserve</button>
                             </div>
                         </div>
                         <hr />
                         <div className="reviews-outer-container">
-                            <h3><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</h3>
+                            {
+                                spotDetails.Reviews.length ? (
+                                    <h3><MdStarRate />{spotDetails.avgRating ? spotDetails.avgRating.toFixed(2) : spotDetails.avgRating} <LuDot /> {spotDetails.numReviews} reviews</h3>
+
+                                ) : (
+                                    <h3><MdStarRate /> New</h3>
+                                )
+                            }
                             <div className="reviews-inner-container">
                                 {
                                     currUser && spotDetails.ownerId !== currUser.id && !(spotDetails.Reviews.find(review => review.userId === currUser.id)) && !spotDetails.Reviews.length ? (
