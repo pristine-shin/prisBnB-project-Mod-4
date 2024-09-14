@@ -1,4 +1,5 @@
 import { useState } from "react";
+// import { NavLink } from "react-router-dom";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal';
@@ -31,6 +32,16 @@ const LoginFormModal = () => {
     });
   };
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const userInfo = {
+      credential: "Demo-lition",
+      password: "password"
+    };
+    return dispatch(login(userInfo))
+    .then(closeModal)
+  }
+
   return (
     <div className="login-container">
       <h1 id="heading">Log In</h1>
@@ -54,6 +65,7 @@ const LoginFormModal = () => {
         {errors.credential && <p>{errors.credential}</p>}
         <button type="submit" className="login-button">Log In</button>
       </form>
+        <button onClick={handleClick}>Demo User</button>
     </div>
   );
 };
