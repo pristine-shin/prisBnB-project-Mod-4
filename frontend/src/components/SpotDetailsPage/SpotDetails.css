@@ -1,5 +1,6 @@
 .spot-details-container{
   margin: 0px 40px 40px 40px;
+  max-width: 1000px;
 }
 
 .spot-images-container{
