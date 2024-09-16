@@ -1,15 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
-import { NavLink } from "react-router-dom";
-import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoIosMenu } from "react-icons/io";
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import * as sessionActions from '../../store/session';
 
 function ProfileButtonLoggedOut() {
-  const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
