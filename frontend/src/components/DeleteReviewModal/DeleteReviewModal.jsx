@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import './DeleteReview.css'
 import { deleteReview } from "../../store/review";
@@ -7,13 +6,7 @@ import { deleteReview } from "../../store/review";
 const DeleteReviewModal = ({reviewId}) => {
   const dispatch = useDispatch();
   const currSpotId = useSelector((state) => state.spot.id)
-  // const review = useSelector((state) => state.review)
-  // console.log('current spot', currSpotId)
-  // console.log('current reviewId', reviewId)
-  // const currUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
-
-  // if(currUser) return <Navigate to='/' replace={true} />
 
   const handleClickDelete = async (e) => {
     e.preventDefault();
