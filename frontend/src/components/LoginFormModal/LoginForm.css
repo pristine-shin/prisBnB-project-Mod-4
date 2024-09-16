@@ -41,9 +41,19 @@
 }
 
 .login-button {
-    color: gray;
-    width: 100%;
+    background-color: rgb(255, 60, 93);
+    color: white;
+    width: 103%;
     height: 40px;
     margin-top: 10px;
-    box-shadow: 3px 3px gray;
+    box-shadow: 3px 3px black;
+}
+
+#demo-user-button{
+    border: none;
+    background-color: white;
+    text-decoration: underline;
+    font-size: medium;
+    color: rgb(12, 78, 71);
+    margin-bottom: 30px;
 }
