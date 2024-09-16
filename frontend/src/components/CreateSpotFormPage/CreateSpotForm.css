@@ -1,3 +1,10 @@
+.create-spot-container{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 33%;
+}
+
 hr{
     height: 2px;
     background-color: black;
@@ -22,4 +29,11 @@ hr{
     background-color: rgb(255, 63, 86);
     color: white;
     box-shadow: 3px 3px black;
+}
+
+@media screen and (min-width: 375px) and (max-width: 800px) {
+    .create-spot-container{
+        width: 80%;
+        margin-left: 10%;
+    }
 }

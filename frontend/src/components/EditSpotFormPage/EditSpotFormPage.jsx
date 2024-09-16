@@ -107,14 +107,7 @@ function EditSpotFormPage() {
   return (
     <>
 { isLoaded &&
-     <div className='create-spot-container'
-      style={{
-        width: "33%",
-        display: "flex",
-        flexDirection: "column",
-        marginLeft: "33%",
-
-      }}>
+     <div className='create-spot-container'>
       <h1>Update your Spot</h1>
       <h2>Where&apos;s your place located?</h2>
       <h3>Guests will only get your exact address once they booked a reservation.</h3>

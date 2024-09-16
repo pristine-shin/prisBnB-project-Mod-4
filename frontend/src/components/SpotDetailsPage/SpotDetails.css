@@ -80,3 +80,20 @@
   font-size: small;
   margin-bottom: 5px;
 }
+
+@media screen and (min-width: 375px) and (max-width: 500px) {
+  .description-price-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .price-container{
+    margin: 0px;
+  }
+
+  .spot-images-container{
+    display: flex;
+    flex-direction: column;
+  }
+}
