@@ -39,6 +39,7 @@
     padding: 5px 5px 5px 5px;
     font-size: large;
     border: 1.5px solid rgb(179, 178, 178);
+    background-color: white;
 }
 
 #log-out-button{
