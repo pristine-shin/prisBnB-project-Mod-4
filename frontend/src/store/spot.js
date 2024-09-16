@@ -188,15 +188,11 @@ const spotReducer = (state = initialState, action) => {
       return newState;
     }
     case REMOVE_SPOT: {
-      const newState = {...state};
-      delete newState.spot;
+      const deletedSpot = action.spotId;
+      const newState = {...state, deletedSpot};
+      delete newState.deletedSpot;
       return newState //i dont think this is going to work
     }
-    //might not need this one?
-    // case ADD_IMAGE: {
-    //   const newState = {...state, ...action.image};
-    //   return newState;
-    // }
     case LOAD_DETAILS: {
       const newState = {...state, ...action.spotId};//dont think this will do it but lets see
       return newState;

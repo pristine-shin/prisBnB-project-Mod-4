@@ -48,7 +48,6 @@ function EditSpotFormPage() {
     }
   }, [currSpot]);
 
-
   // if (sessionUser) return <Navigate to="/spots/new" replace={true} />;
 
   const handleSubmit = (e) => {

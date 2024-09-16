@@ -17,15 +17,13 @@ const SpotDetailsPage = () => {
     const currUser = useSelector((state) => state.session.user);
     const review = useSelector((state) => state.review)
 
-    // console.log(review);
+    
 
     useEffect(() => {
         dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId))).then(() => { setisLoading(true) })
     }, [dispatch, spotId, review]);
 
 
-    // const previewImg = spotDetails.SpotImages.find(image => image.preview === true);
-    // console.log(spotDetails);
     const handleClick = () => {
         alert('Feature Coming Soon...')
     }

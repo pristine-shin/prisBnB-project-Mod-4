@@ -4,18 +4,16 @@ import { getCurrentUserSpots } from "../../store/spot";
 import { useDispatch, useSelector } from "react-redux";
 import { MdStarRate } from "react-icons/md";
 import './ManageSpots.css'
-import DeleteSpotButton from "./DeleteSpotButton";
+import OpenModalButton from '../OpenModalButton';
 import UpdateSpotButton from "./UpdateSpotButton"
+import DeleteSpotModal from "./DeleteSpotModal";
 
 const ManageSpotsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currUserSpots = useSelector(state => state.spot.Spots);
-  // const [spotId, setSpotId] = useState('')
-  // const currSpotId = useSelector((state) => state.spot);
 
   console.log('user spots', currUserSpots);
-  // console.log('current spot id', spotId)
 
   useEffect(() => {
     dispatch(getCurrentUserSpots());
@@ -25,12 +23,6 @@ const ManageSpotsPage = () => {
     e.preventDefault();
     return navigate('/spots/new');
   }
-
-  // const handleClickDelete = async (e) => {
-  //   e.preventDefault();
-
-  //   return dispatch(deleteSpot(spotId))
-  // }
 
   if (!currUserSpots) {
     return (
@@ -53,17 +45,16 @@ const ManageSpotsPage = () => {
                 <div><MdStarRate />{avgRating ? avgRating.toFixed(2) : avgRating}</div>
               </div>
               <div className="spot-price">${price} night</div>
-              <div className="update-delete-buttons-container">
-                {/* <NavLink to={`/spots/${id}/edit`}>
-                  <button className="review-button">Update</button>
-                </NavLink> */}
-                <UpdateSpotButton spot={{ id, previewImage, city, state, avgRating, price }}/>
-                {/* <NavLink to={`/spots/current`}> */}
-                {/* <button onClick={() => setSpotId(id)}className="review-button">Delete</button> */}
-                {/* </NavLink> */}
-                <DeleteSpotButton spotId={id}/>
-              </div>
             </NavLink>
+              <div className="update-delete-buttons-container">
+                <UpdateSpotButton spot={{ id, previewImage, city, state, avgRating, price }}/>
+                <OpenModalButton
+                  buttonText="Delete"
+                  buttonClassName="delete-review-modal-button"
+                  spotId={id}
+                  modalComponent={<DeleteSpotModal spotId={id}/>}
+                  />
+              </div>
           </div>
         ))}
       </div>

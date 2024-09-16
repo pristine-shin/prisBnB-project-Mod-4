@@ -595,7 +595,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
             "message": "Spot couldn't be found"
         })
     }
-    
+
 
     if (updatedSpot.ownerId === user.id) {
         updatedSpot.set({ address, city, state, country, lat, lng, name, description, price });
@@ -619,7 +619,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const spotFromId = await Spot.findOne({
         where: {
             id: req.params.spotId,
-            // ownerId: user.id
         },
     });
 
