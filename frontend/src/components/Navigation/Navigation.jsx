@@ -1,9 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import ProfileButtonLoggedOut from './ProfileButtonLoggedOut';
 import { SiAirbnb } from "react-icons/si";
 import './Navigation.css'
 
@@ -22,18 +20,7 @@ const Navigation = ({ isLoaded }) => {
       </ul>
       ) : (
         <>
-          <li>
-            <OpenModalButton
-              buttonText="Log In"
-              modalComponent={<LoginFormModal />}
-            />
-          </li>
-          <li>
-            <OpenModalButton
-              buttonText="Sign Up"
-              modalComponent={<SignupFormModal />}
-            />
-          </li>
+          <ProfileButtonLoggedOut />
         </>
       );
 
