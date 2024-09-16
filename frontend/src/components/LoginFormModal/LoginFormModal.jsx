@@ -65,7 +65,7 @@ const LoginFormModal = () => {
         {errors.credential && <p>{errors.credential}</p>}
         <button type="submit" className="login-button">Log In</button>
       </form>
-        <button onClick={handleClick}>Demo User</button>
+        <button onClick={handleClick} id="demo-user-button">Demo User</button>
     </div>
   );
 };
