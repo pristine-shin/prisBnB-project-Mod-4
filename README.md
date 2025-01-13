@@ -1,4 +1,5 @@
-# Pristine's AirBnB Project
+# PrisBnB
+PrisBnB is a full-stack web application inspired by Airbnb. This project replicates core features of the popular platform, allowing users to browse, book, and review listings. Built with a robust Express.js backend and a dynamic React-Redux frontend, the application provides a seamless and responsive user experience.
 
 ## Database Schema Design
 
